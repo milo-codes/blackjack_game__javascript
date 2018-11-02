@@ -1,0 +1,26 @@
+{
+  "name": "blackjack_project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "build": "webpack -w",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server:dev": "nodemon server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/genocw/blackjack_js_project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/genocw/blackjack_js_project/issues"
+  },
+  "homepage": "https://github.com/genocw/blackjack_js_project#readme",
+  "devDependencies": {
+    "webpack": "^4.24.0",
+    "webpack-cli": "^3.1.2"
+  }
+}
