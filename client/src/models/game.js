@@ -1,6 +1,9 @@
 const RequestHelper = require('../helpers/request_helper.js');
+const PubSub = require("../helpers/pub_sub.js");
 
 const Game = function () {
+  this.playerCards = [];
+  this.dealerCards = [];
   // this.remainingCards = 0
   this.newDeckUrl = 'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=6';
   // second url for draw?
@@ -18,18 +21,34 @@ Game.prototype.getShuffledDeck = function () {
     .then((shuffledDeck) => {
       this.deckId = shuffledDeck.deck_id;
       this.newCardsUrl = `https://deckofcardsapi.com/api/deck/${ this.deckId }/draw/?count=2`;
-    });
+    })
+    .then(() => {
+      this.dealPlayerTwoCards();
+    })
+    .then(() => {
+      this.dealDealerTwoCards();
+    })
   // this.newCardsUrl = `https://deckofcardsapi.com/api/deck/${ this.deckId }/draw/?count=2`;
   // this.drawTwoCards();
   // console.log(this.deckId);
   // console.log(this.newCardsUrl);
 };
 
-Game.prototype.drawTwoCards = function () {
+Game.prototype.dealPlayerTwoCards = function () {
   this.requestCards = new RequestHelper(this.newCardsUrl);
   this.requestCards.get()
     .then((drawnCards) => {
-      console.log(drawnCards.cards);
+      this.playerCards = drawnCards.cards;
+      PubSub.publish("Game:player-cards-ready", this.playerCards);
+    })
+};
+
+Game.prototype.dealDealerTwoCards = function () {
+  this.requestCards = new RequestHelper(this.newCardsUrl);
+  this.requestCards.get()
+    .then((drawnCards) => {
+      this.dealerCards = drawnCards.cards;
+      PubSub.publish("Game:dealer-cards-ready", this.dealerCards);
     })
 };
 

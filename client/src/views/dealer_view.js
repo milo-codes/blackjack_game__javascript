@@ -6,8 +6,9 @@ const DealerView = function (container) {
 
 
 DealerView.prototype.bindEvents = function () {
-  //subscribe to the game broadcast (cards)
-  this.render(event.detail);
+  PubSub.subscribe("Game:dealer-cards-ready", (event) => {
+    this.render(event.detail);
+  });
 };
 
 
