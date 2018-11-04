@@ -1,6 +1,6 @@
 const PubSub = require('../helpers/pub_sub.js');
 
-const Dealerview = function (container) {
+const DealerView = function (container) {
   this.container = container;
 };
 
@@ -12,12 +12,12 @@ DealerView.prototype.bindEvents = function () {
 
 
 
-DealverView.prototype.render = function (cards) {
-  cards.forEach( (card) =>
+DealerView.prototype.render = function (cards) {
+  cards.forEach( (card) => {
   const cardImage = document.createElement('img');
   cardImage.src = card.image;
   this.container.appendChild(cardImage);
-)};
+})};
 
 
 module.exports = DealerView;

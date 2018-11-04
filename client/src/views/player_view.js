@@ -12,11 +12,11 @@ PlayerView.prototype.bindEvents = function () {
 
 // define the render method
 PlayerView.prototype.render = function (cards) {
-  cards.forEach ((card) =>
+  cards.forEach ((card) => {
   // card.image
   const cardImage = document.createElement("img");
   cardImage.src = card.image;
   this.container.appendChild(cardImage);
-)};
+})};
 
 module.exports = PlayerView;

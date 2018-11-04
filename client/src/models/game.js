@@ -1,53 +1,23 @@
 const RequestHelper = require('../helpers/request_helper.js');
-const PubSub = require('../helpers/pub_sub.js');
 
-const Game = function (url) {
-  this.url = 'http://localhost:3000/api/game';
-  this.request = new RequestHelper(this.url);
-};
-
-List.prototype.bindEvents = function () {
-  PubSub.subscribe('PlayerView:cards-ready', (evt) => {
-    this.loadCards(evt.detail);
-  });
-
-
-  PubSub.subscribe('DealerView:cards-ready', (evt) =>{
-    this.loadCards(evt.detail);
-  })
-
-  PubSub.subscribe('Game:result-loaded', (evt) =>{
-    this.gameResult(evt.detail);
-  })
-
-};
-
-// not sure on the views.
-Game.prototype.getData = function () {
-  this.request.get()
-    .then((cards) => {
-      PubSub.publish('PlayerView:cards-ready', cards)
-      PubSub.publish('DealerView:cards-ready', cards)
-    })
-    .catch(console.error);
-};
-
-Game.prototype.gameResult = function (cards){
-  // can figure this out with the api.
+const Game = function () {
+  // this.remainingCards = 0
+  this.newDeckUrl = 'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=6';
+  // second url for draw?
+  this.requestDeck = new RequestHelper(this.newDeckUrl);
 }
 
-// not sure on the views.
-Game.prototype.loadCards = function (cards){
-  const request = new RequestHelper(this.url);
-  request.post(cards)
-  .then((cards) =>{
-    PubSub.publish('PlayerView:cards-ready', cards)
-    PubSub.publish('DealerView:cards-ready', cards)
-  })
-  .catch(console.error);
+Game.prototype.bindEvents = function () {
+  // will later need to listen for player Play Again button click --> trigger draw more cards from same deck
+
 };
 
-
-
+Game.prototype.getShuffledDeck = function () {
+  this.requestDeck.get()
+    .then((shuffledDeck) => {
+      this.deckId = shuffledDeck.deck_id;
+      console.log(this.deckId);
+    })
+};
 
 module.exports = Game;
