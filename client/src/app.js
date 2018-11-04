@@ -8,7 +8,7 @@ const Game = require("./models/game.js");
 // listener for dom content loaded
 document.addEventListener("DOMContentLoaded", () => {
   console.log("DOMContentLoaded");
-  document query selector for container - player
+  // document query selector for container - player
   const playerContainer = document.querySelector( 'div#player_container' );
   // create new instance of player view  (container)
   const playerView = new PlayerView(playerContainer);
