@@ -9,26 +9,26 @@ const Game = require("./models/game.js");
 document.addEventListener("DOMContentLoaded", () => {
   console.log("DOMContentLoaded");
   // document query selector for container - player
-  // const playerContainer = document.querySelector(  TODO  );
-  // // create new instance of player view  (container)
-  // const playerView = new PlayerView(playerContainer);
-  // //call bind events on player view
-  // playerView.bindEvents();
-  // // renderButton?
-  //
-  // // document query selector for container - dealer
-  // const dealerContainer = document.querySelector(  TODO  );
-  // // create new instance of dealer view  (container)
-  // const dealerView = new DealerView(dealerContainer);
-  // //call bind events on dealer view
-  // dealerView.bindEvents();
-  //
-  // // document query selector for container - result
-  // const resultContainer = document.querySelector(  TODO  );
-  // // create new instance of result view  (container)
-  // const resultView = new ResultView(resultContainer);
-  // //call bind events on result view
-  // resultView.bindEvents();
+  const playerContainer = document.querySelector( 'div#player_container' );
+  // create new instance of player view  (container)
+  const playerView = new PlayerView(playerContainer);
+  //call bind events on player view
+  playerView.bindEvents();
+  // renderButton?
+
+  // document query selector for container - dealer
+  const dealerContainer = document.querySelector( 'div#dealer_container' );
+  // create new instance of dealer view  (container)
+  const dealerView = new DealerView(dealerContainer);
+  //call bind events on dealer view
+  dealerView.bindEvents();
+
+  // document query selector for container - result
+  const resultContainer = document.querySelector(  'div#result_container' );
+  // create new instance of result view  (container)
+  const resultView = new ResultView(resultContainer);
+  //call bind events on result view
+  resultView.bindEvents();
 
 
   // new instance of model
