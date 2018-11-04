@@ -23,15 +23,14 @@ Game.prototype.getShuffledDeck = function () {
       this.newCardsUrl = `https://deckofcardsapi.com/api/deck/${ this.deckId }/draw/?count=2`;
     })
     .then(() => {
-      this.dealPlayerTwoCards();
+      this.dealPlayerTwoCards()
     })
     .then(() => {
-      this.dealDealerTwoCards();
+      this.dealDealerTwoCards()
     })
-  // this.newCardsUrl = `https://deckofcardsapi.com/api/deck/${ this.deckId }/draw/?count=2`;
-  // this.drawTwoCards();
-  // console.log(this.deckId);
-  // console.log(this.newCardsUrl);
+    // .then(() => {
+    //   this.getResult()
+    // });
 };
 
 Game.prototype.dealPlayerTwoCards = function () {
@@ -40,6 +39,23 @@ Game.prototype.dealPlayerTwoCards = function () {
     .then((drawnCards) => {
       this.playerCards = drawnCards.cards;
       PubSub.publish("Game:player-cards-ready", this.playerCards);
+      return this.playerCards;
+    })
+    .then(() => {
+      this.playerCards.forEach((cardObject) => {
+        if (cardObject.value === "JACK") {
+          cardObject.value = "10";
+        }
+        else if (cardObject.value === "QUEEN") {
+          cardObject.value = "10";
+        }
+        else if (cardObject.value === "KING") {
+          cardObject.value = "10";
+        }
+        else if (cardObject.value === "ACE") {
+          cardObject.value = "11";
+        }
+      });
     })
 };
 
@@ -50,6 +66,38 @@ Game.prototype.dealDealerTwoCards = function () {
       this.dealerCards = drawnCards.cards;
       PubSub.publish("Game:dealer-cards-ready", this.dealerCards);
     })
+    .then(() => {
+      this.dealerCards.forEach((cardObject) => {
+        if (cardObject.value === "JACK") {
+          cardObject.value = "10";
+        }
+        else if (cardObject.value === "QUEEN") {
+          cardObject.value = "10";
+        }
+        else if (cardObject.value === "KING") {
+          cardObject.value = "10";
+        }
+        else if (cardObject.value === "ACE") {
+          cardObject.value = "11";
+        }
+      });
+    })
+};
+
+Game.prototype.getResult = function () {
+  this.getPlayerTotal();
+  // this.getDealerTotal();
+  // TODO calc
+};
+
+Game.prototype.getPlayerTotal = function () {
+  console.log(this.playerCards); // --> CURRENTLY EMPTY ARRAY - check order of functions being called
+  
+  // this.playerTotal = 0;
+  // this.playerCards.forEach((cardObject) => {
+  //   console.log("NUMERIC?", Number(cardObject.value));
+  // });
+  // console.log(this.playerTotal);
 };
 
 module.exports = Game;
