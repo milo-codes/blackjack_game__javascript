@@ -28,9 +28,10 @@ Game.prototype.getShuffledDeck = function () {
     .then(() => {
       this.dealDealerTwoCards()
     })
-    // .then(() => {
-    //   this.getResult()
-    // });
+    .then(() => {
+      this.getResult()
+      // get both totals and calc
+    });
 };
 
 Game.prototype.dealPlayerTwoCards = function () {
@@ -43,6 +44,7 @@ Game.prototype.dealPlayerTwoCards = function () {
     })
     .then(() => {
       this.playerCards.forEach((cardObject) => {
+        // decide where we want the values re-assigned:
         if (cardObject.value === "JACK") {
           cardObject.value = "10";
         }
@@ -56,6 +58,7 @@ Game.prototype.dealPlayerTwoCards = function () {
           cardObject.value = "11";
         }
       });
+      return this.playerCards;
     })
 };
 
@@ -87,17 +90,12 @@ Game.prototype.dealDealerTwoCards = function () {
 Game.prototype.getResult = function () {
   this.getPlayerTotal();
   // this.getDealerTotal();
-  // TODO calc
+  // TODO calc who wins
 };
 
 Game.prototype.getPlayerTotal = function () {
   console.log(this.playerCards); // --> CURRENTLY EMPTY ARRAY - check order of functions being called
-  
-  // this.playerTotal = 0;
-  // this.playerCards.forEach((cardObject) => {
-  //   console.log("NUMERIC?", Number(cardObject.value));
-  // });
-  // console.log(this.playerTotal);
+
 };
 
 module.exports = Game;
