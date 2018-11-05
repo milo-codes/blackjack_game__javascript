@@ -15,11 +15,11 @@ Game.prototype.bindEvents = function () {
   });
 
   PubSub.subscribe("ResultView:hit-button-click", () => {
-    this.drawOneCard(this.roundObject.playerCards)
+    this.drawOneCard(this.roundObject.playerCards, `player`)
   });
 
   PubSub.subscribe("ResultView:stick-button-click", () => {
-    // trigger dealer logic
+    this.renderDealerAction(this.roundObject.dealerCards)
   });
 };
 
@@ -54,17 +54,30 @@ Game.prototype.dealCards = function (deckId) {
     })
 };
 
-Game.prototype.drawOneCard = function (array) {
+Game.prototype.drawOneCard = function (array, actor) {
   this.drawOneUrl = `https://deckofcardsapi.com/api/deck/${ this.deckId }/draw/?count=1`;
   this.requestOneCard = new RequestHelper(this.drawOneUrl);
   this.requestOneCard.get()
     .then((cardObject) => {
       this.convert(cardObject.cards);
       array.push(cardObject.cards[0]);
-      console.log(array);
-      PubSub.publish("Game:player-cards-ready", array);
+      PubSub.publish(`Game:${ actor }-cards-ready`, array);
       this.bustChecker(this.roundObject);
     })
+};
+
+Game.prototype.renderDealerAction = function (array) {
+  if (this.getHandTotal(array) <= 16) {
+    this.drawOneCard(array, `dealer`);
+    if (this.getHandTotal(array) <= 16) {
+      this.drawOneCard(array, `dealer`);
+      if (this.getHandTotal(array) <= 16) {
+        this.drawOneCard(array, `dealer`);
+      };
+    };
+  };
+  this.getResult(this.roundObject);
+  // TODO - not waiting for the API req and therefor checking old total and looping infinitely
 };
 
 Game.prototype.convert = function (drawnCards) {
@@ -127,10 +140,10 @@ Game.prototype.renderChoice = function (roundObject) {
 }
 
 Game.prototype.bustChecker = function (roundObject) {
-  if (this.getHandTotal(roundObject.playerCards) > 21) {
+  if ((this.getHandTotal(roundObject.playerCards) > 21) || (this.getHandTotal(roundObject.dealerCards) > 21)) {
     this.getResult(roundObject);
   }
-}
+};
 
 
 //method B
