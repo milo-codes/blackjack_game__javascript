@@ -98,4 +98,41 @@ Game.prototype.getResult = function (roundObject) {
   PubSub.publish("Game:result-loaded", whoWon);
 };
 
+
+
+//ia the array length 2?
+//if yes, go to method A
+//if no, go to method B
+
+//method A  - Blackjack checker
+//is your total or dealer total 21? < dealer blackjack is checked here
+//if yes -> check against dealer hand
+//trigger result - win or draw
+//if no, go to method B
+
+//method B
+// are you > 21?
+//if yes -> go to ace checker
+//if no, go to method c
+
+//ace checker:
+//is there an ace?
+//change value of ace
+//proceed to method C 
+
+//method C
+//render the hit/stick button
+//add listeners
+//do you want another hit?
+//if no -> go to dealer logic to see who;s actually won....
+//if yes, go to get card method, and return to top of logic chart
+
+//dealer logic
+//if dealer total <= 16 { draw another card}
+//else proceed to total checker
+
+//check who's hand is highest
+//trigger result
+
+
 module.exports = Game;
