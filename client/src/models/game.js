@@ -5,6 +5,7 @@ const Game = function () {
   this.newDeckUrl = 'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=6';
   this.requestDeck = new RequestHelper(this.newDeckUrl);
   this.roundObject = {};
+
 }
 
 Game.prototype.bindEvents = function () {
@@ -73,42 +74,50 @@ Game.prototype.convert = function (drawnCards) {
   });
 };
 
-Game.prototype.getResult = function (roundObject) {
-  playerTotal = 0;
-  dealerTotal = 0;
-  roundObject.dealerCards.forEach((card) => {
-    dealerTotal += Number(card.value)
+// Game.prototype.getResult = function (roundObject) {
+//   playerTotal = 0;
+//   dealerTotal = 0;
+//   roundObject.dealerCards.forEach((card) => {
+//     dealerTotal += Number(card.value)
+//   });
+//   roundObject.playerCards.forEach((card) => {
+//     playerTotal += Number(card.value)
+//   });
+//
+//   whoWon = "";
+//
+//   if (playerTotal > dealerTotal) {
+//     whoWon = "You win!";
+//   }
+//   else if (dealerTotal > playerTotal) {
+//     whoWon = "Dealer wins!"
+//   }
+//   else {
+//     whoWon = "It's a draw!"
+//   }
+//
+//   PubSub.publish("Game:result-loaded", whoWon);
+// };
+
+Game.prototype.getHandTotal = function (array) {
+  total = 0;
+  array.forEach((card) => {
+    total += Number(card.value)
   });
-  roundObject.playerCards.forEach((card) => {
-    playerTotal += Number(card.value)
-  });
-
-  whoWon = "";
-
-  if (playerTotal > dealerTotal) {
-    whoWon = "You win!";
-  }
-  else if (dealerTotal > playerTotal) {
-    whoWon = "Dealer wins!"
-  }
-  else {
-    whoWon = "It's a draw!"
-  }
-
-  PubSub.publish("Game:result-loaded", whoWon);
+  return total;
 };
 
+Game.prototype.blackJackChecker = function (roundObject) {
+  const playerTotal = this.getHandTotal(roundObject.playerCards)
+  const dealerTotal = this.getHandTotal(roundObject.dealerCards)
+  if ((playerTotal == 21) || (dealerTotal == 21)) {
+    this.getResult(roundObject);
+  }
+  else {
+    this.bustChecker(roundObject);
+  }
+};
 
-
-//ia the array length 2?
-//if yes, go to method A
-//if no, go to method B
-
-//method A  - Blackjack checker
-//is your total or dealer total 21? < dealer blackjack is checked here
-//if yes -> check against dealer hand
-//trigger result - win or draw
-//if no, go to method B
 
 //method B
 // are you > 21?
@@ -118,7 +127,7 @@ Game.prototype.getResult = function (roundObject) {
 //ace checker:
 //is there an ace?
 //change value of ace
-//proceed to method C 
+//proceed to method C
 
 //method C
 //render the hit/stick button
