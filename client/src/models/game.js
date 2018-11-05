@@ -14,9 +14,12 @@ Game.prototype.bindEvents = function () {
     this.dealCards(this.deckId);
   });
 
-  const drawOneButton = document.querySelector("#draw-one");
-  drawOneButton.addEventListener("click", () => {
+  PubSub.subscribe("ResultView:hit-button-click", () => {
     this.drawOneCard(this.roundObject.playerCards)
+  });
+
+  PubSub.subscribe("ResultView:stick-button-click", () => {
+    // trigger dealer logic
   });
 };
 
@@ -46,7 +49,7 @@ Game.prototype.dealCards = function (deckId) {
           this.convert(drawnCards.cards)
           this.roundObject.dealerCards = drawnCards.cards;
           PubSub.publish("Game:dealer-cards-ready", this.roundObject.dealerCards);
-          this.getResult(this.roundObject);
+          this.blackJackChecker(this.roundObject);
         });
     })
 };
@@ -60,6 +63,7 @@ Game.prototype.drawOneCard = function (array) {
       array.push(cardObject.cards[0]);
       console.log(array);
       PubSub.publish("Game:player-cards-ready", array);
+      this.bustChecker(this.roundObject);
     })
 };
 
@@ -118,13 +122,14 @@ Game.prototype.blackJackChecker = function (roundObject) {
   }
 };
 
+Game.prototype.renderChoice = function (roundObject) {
+  PubSub.publish("Game:choice-loaded");
+}
+
 Game.prototype.bustChecker = function (roundObject) {
 
 }
 
-Game.prototype.renderChoice = function (roundObject) {
-  
-}
 
 //method B
 // are you > 21?
