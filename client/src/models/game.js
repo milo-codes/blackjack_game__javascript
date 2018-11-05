@@ -7,7 +7,10 @@ const Game = function () {
 }
 
 Game.prototype.bindEvents = function () {
-  //  listen for player Play Again button click --> trigger draw more cards from same deck
+  const playAgainButton = document.querySelector("#play-again-button");
+  playAgainButton.addEventListener("click", () => {
+    this.dealCards(this.deckId);
+  })
 };
 
 Game.prototype.getShuffledDeck = function () {

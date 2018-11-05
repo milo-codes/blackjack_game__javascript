@@ -16,6 +16,7 @@ ResultView.prototype.bindEvents = function () {
 };
 
 ResultView.prototype.renderResult = function (result) {
+  this.container.innerHTML = "";
   // render result
   const paragraph = document.createElement('p');
   paragraph.textContent = result;

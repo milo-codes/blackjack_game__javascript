@@ -14,6 +14,7 @@ PlayerView.prototype.bindEvents = function () {
 
 // define the render method
 PlayerView.prototype.render = function (cards) {
+  this.container.innerHTML = "";
   cards.forEach ((card) => {
   // card.image
   const cardImage = document.createElement("img");

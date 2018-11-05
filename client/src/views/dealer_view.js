@@ -14,6 +14,8 @@ DealerView.prototype.bindEvents = function () {
 
 
 DealerView.prototype.render = function (cards) {
+  this.container.innerHTML = "";
+  
   cards.forEach( (card) => {
   const cardImage = document.createElement('img');
   cardImage.src = card.image;
