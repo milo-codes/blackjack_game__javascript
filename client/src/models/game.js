@@ -20,7 +20,7 @@ Game.prototype.getShuffledDeck = function () {
     .then((deckId) => {
       this.dealCards(deckId);
     })
-};
+}
 
 Game.prototype.dealCards = function (deckId) {
   const roundObject = {};
