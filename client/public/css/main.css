@@ -1,14 +1,63 @@
-#dealer_container{
-border: 3px solid black;
+body {
+  background-image: url("background-1.png")
+}
 
+h1 {
+  text-align: center;
+  font-family: 'casino';
+}
+
+img {
+  width: 100px;
+  height: auto;
+}
+
+p {
+  color: white;
+  font-family: 'casino';
+}
+
+.header {
+    background-color: #666;
+    padding: 10px;
+    text-align: center;
+    font-size: 30px;
+    color: white;
+  }
+
+ul {
+  list-style-type: none;
+  margin: 20px;
+  padding: 20px;
+  overflow: hidden;
+  background-color: #333;
+  display: inline-block;
+  list-style-type: none;
+
+}
+li {
+    float: left;
+    font-family: 'casino', regular;
+    text-align: center;
+    padding-right: 30px;
+    padding-left: 30px;
+}
+
+li:not(:last-child) {
+  border-right: 2px solid #d2d5e4;
+}
+
+#dealer_container{
+  text-align: center;
+  color: white;
 }
 
 #player_container{
-border: 3px solid black;
-
+  text-align: center;
+  color: white;
 }
 
 #result_container{
-border: 3px solid black;
-
+  text-align: center;
+  color: white;
 }
