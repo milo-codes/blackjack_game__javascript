@@ -114,10 +114,17 @@ Game.prototype.blackJackChecker = function (roundObject) {
     this.getResult(roundObject);
   }
   else {
-    this.bustChecker(roundObject);
+    this.renderChoice(roundObject);
   }
 };
 
+Game.prototype.bustChecker = function (roundObject) {
+
+}
+
+Game.prototype.renderChoice = function (roundObject) {
+  
+}
 
 //method B
 // are you > 21?
