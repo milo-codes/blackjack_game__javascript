@@ -116,6 +116,21 @@ Game.prototype.convert = function (drawnCards) {
 
 Game.prototype.getResult = function (roundObject) {
   console.log(roundObject);
+  // roundObject = {
+  //   dealerCards: [array of cards],
+  //   playerCards: [array of cards]
+  // }
+  playerTotal = 0;
+  dealerTotal = 0;
+  roundObject.dealerCards.forEach((card) => {
+    dealerTotal += Number(card.value)
+  });
+  roundObject.playerCards.forEach((card) => {
+    playerTotal += Number(card.value)
+  });
+  console.log(playerTotal);
+  console.log(dealerTotal);
+  // if playerTotal > dealerTotal
   // this.getPlayerTotal();
   // this.getDealerTotal();
   // TODO calc who wins
