@@ -4,13 +4,19 @@ const PubSub = require("../helpers/pub_sub.js");
 const Game = function () {
   this.newDeckUrl = 'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=6';
   this.requestDeck = new RequestHelper(this.newDeckUrl);
+  this.roundObject = {};
 }
 
 Game.prototype.bindEvents = function () {
   const playAgainButton = document.querySelector("#play-again-button");
   playAgainButton.addEventListener("click", () => {
     this.dealCards(this.deckId);
-  })
+  });
+
+  const drawOneButton = document.querySelector("#draw-one");
+  drawOneButton.addEventListener("click", () => {
+    this.drawOneCard(this.roundObject.playerCards)
+  });
 };
 
 Game.prototype.getShuffledDeck = function () {
@@ -26,23 +32,33 @@ Game.prototype.getShuffledDeck = function () {
 }
 
 Game.prototype.dealCards = function (deckId) {
-  const roundObject = {};
   this.requestCards = new RequestHelper(this.newCardsUrl);
   this.requestCards.get()
     .then((drawnCards) => {
       this.convert(drawnCards.cards)
-      console.log(drawnCards.cards);
-      roundObject.playerCards = drawnCards.cards;
-      PubSub.publish("Game:player-cards-ready", roundObject.playerCards);
+      this.roundObject.playerCards = drawnCards.cards;
+      PubSub.publish("Game:player-cards-ready", this.roundObject.playerCards);
     })
     .then(() => {
       this.requestCards.get()
         .then((drawnCards) => {
           this.convert(drawnCards.cards)
-          roundObject.dealerCards = drawnCards.cards;
-          PubSub.publish("Game:dealer-cards-ready", roundObject.dealerCards);
-          this.getResult(roundObject);
+          this.roundObject.dealerCards = drawnCards.cards;
+          PubSub.publish("Game:dealer-cards-ready", this.roundObject.dealerCards);
+          this.getResult(this.roundObject);
         });
+    })
+};
+
+Game.prototype.drawOneCard = function (array) {
+  this.drawOneUrl = `https://deckofcardsapi.com/api/deck/${ this.deckId }/draw/?count=1`;
+  this.requestOneCard = new RequestHelper(this.drawOneUrl);
+  this.requestOneCard.get()
+    .then((cardObject) => {
+      this.convert(cardObject.cards);
+      array.push(cardObject.cards[0]);
+      console.log(array);
+      PubSub.publish("Game:player-cards-ready", array);
     })
 };
 
@@ -66,12 +82,6 @@ Game.prototype.getResult = function (roundObject) {
   roundObject.playerCards.forEach((card) => {
     playerTotal += Number(card.value)
   });
-  console.log(dealerTotal);
-  console.log(playerTotal);
-  // if playerTotal > dealerTotal
-  // this.getPlayerTotal();
-  // this.getDealerTotal();
-  // TODO calc who wins
 
   whoWon = "";
 
