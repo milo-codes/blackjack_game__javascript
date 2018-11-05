@@ -11,7 +11,6 @@ const ResultView = function (container) {
 ResultView.prototype.bindEvents = function () {
   PubSub.subscribe("Game:result-loaded", (event) => {
     // render payload:
-    console.log("whasssup");
     this.renderResult(event.detail);
   });
 };

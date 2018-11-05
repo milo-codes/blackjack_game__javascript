@@ -14,6 +14,7 @@ Game.prototype.getShuffledDeck = function () {
   this.requestDeck.get()
     .then((shuffledDeck) => {
       this.newCardsUrl = `https://deckofcardsapi.com/api/deck/${ shuffledDeck.deck_id }/draw/?count=2`;
+      this.deckId = shuffledDeck.deck_id;
       return shuffledDeck.deck_id;
     })
     .then((deckId) => {
@@ -47,12 +48,6 @@ Game.prototype.convert = function (drawnCards) {
     if ((cardObject.value === "JACK") || (cardObject.value === "QUEEN") || (cardObject.value === "KING")) {
       cardObject.value = "10";
     }
-    // else if (cardObject.value === "QUEEN") {
-    //   cardObject.value = "10";
-    // }
-    // else if (cardObject.value === "KING") {
-    //   cardObject.value = "10";
-    // }
     else if (cardObject.value === "ACE") {
       cardObject.value = "11";
     }
@@ -68,13 +63,12 @@ Game.prototype.getResult = function (roundObject) {
   roundObject.playerCards.forEach((card) => {
     playerTotal += Number(card.value)
   });
-  console.log(playerTotal);
   console.log(dealerTotal);
+  console.log(playerTotal);
   // if playerTotal > dealerTotal
   // this.getPlayerTotal();
   // this.getDealerTotal();
   // TODO calc who wins
-  console.log('hellooo');
 
   whoWon = "";
 
