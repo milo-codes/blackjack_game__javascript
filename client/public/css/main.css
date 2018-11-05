@@ -1,51 +1,55 @@
 body {
-  background-image: url("background-1.png")
+  background-image: url("background-1.png");
+  font-family: 'casino';
 }
 
 h1 {
-  text-align: center;
   font-family: 'casino';
+  color: white;
+  padding-left: 20px;
+}
+
+#logo {
+  width: 120px;
+  height: auto;
+  float:left;
 }
 
 img {
   width: 100px;
   height: auto;
+  float: center;
 }
 
 p {
   color: white;
-  font-family: 'casino';
+  font-size: 30px;
+  vertical-align: middle;
 }
 
-.header {
-    background-color: #666;
-    padding: 10px;
-    text-align: center;
-    font-size: 30px;
-    color: white;
-  }
+.view {
+  color: white;
+}
 
-ul {
-  list-style-type: none;
-  margin: 20px;
-  padding: 20px;
+.topnav {
   overflow: hidden;
   background-color: #333;
-  display: inline-block;
-  list-style-type: none;
-
-}
-li {
-    float: left;
-    font-family: 'casino', regular;
-    text-align: center;
-    padding-right: 30px;
-    padding-left: 30px;
 }
 
-li:not(:last-child) {
-  border-right: 2px solid #d2d5e4;
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
 }
+
+.topnav a:hover {
+  background-color: green;
+  color: white;
+}
+
 
 #dealer_container{
   text-align: center;
@@ -60,4 +64,21 @@ li:not(:last-child) {
 #result_container{
   text-align: center;
   color: white;
+}
+
+button {
+  /* display: inline-block; */
+  border-radius: 4px;
+  background-color: green;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 15px;
+  padding: 10px;
+  width: auto;
+  cursor: pointer;
+}
+
+button: hover {
+  color: yellow;
 }
