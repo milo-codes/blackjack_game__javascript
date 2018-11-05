@@ -44,16 +44,15 @@ Game.prototype.dealCards = function (deckId) {
 
 Game.prototype.convert = function (drawnCards) {
   drawnCards.forEach((cardObject) => {
-    // decide where we want the values re-assigned:
-    if (cardObject.value === "JACK") {
+    if ((cardObject.value === "JACK") || (cardObject.value === "QUEEN") || (cardObject.value === "KING")) {
       cardObject.value = "10";
     }
-    else if (cardObject.value === "QUEEN") {
-      cardObject.value = "10";
-    }
-    else if (cardObject.value === "KING") {
-      cardObject.value = "10";
-    }
+    // else if (cardObject.value === "QUEEN") {
+    //   cardObject.value = "10";
+    // }
+    // else if (cardObject.value === "KING") {
+    //   cardObject.value = "10";
+    // }
     else if (cardObject.value === "ACE") {
       cardObject.value = "11";
     }
