@@ -134,6 +134,22 @@ Game.prototype.getResult = function (roundObject) {
   // this.getPlayerTotal();
   // this.getDealerTotal();
   // TODO calc who wins
+  console.log('hellooo');
+
+  whoWon = "";
+
+  if (playerTotal > dealerTotal) {
+    whoWon = "You win!";
+  }
+  else if (dealerTotal > playerTotal) {
+    whoWon = "Dealer wins!"
+  }
+  else {
+    whoWon = "It's a draw!"
+  }
+
+  PubSub.publish("Game:result-loaded", whoWon);
+
 };
 
 // Game.prototype.getPlayerTotal = function () {
