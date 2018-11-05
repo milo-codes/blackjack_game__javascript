@@ -78,30 +78,30 @@ Game.prototype.convert = function (drawnCards) {
   });
 };
 
-// Game.prototype.getResult = function (roundObject) {
-//   playerTotal = 0;
-//   dealerTotal = 0;
-//   roundObject.dealerCards.forEach((card) => {
-//     dealerTotal += Number(card.value)
-//   });
-//   roundObject.playerCards.forEach((card) => {
-//     playerTotal += Number(card.value)
-//   });
-//
-//   whoWon = "";
-//
-//   if (playerTotal > dealerTotal) {
-//     whoWon = "You win!";
-//   }
-//   else if (dealerTotal > playerTotal) {
-//     whoWon = "Dealer wins!"
-//   }
-//   else {
-//     whoWon = "It's a draw!"
-//   }
-//
-//   PubSub.publish("Game:result-loaded", whoWon);
-// };
+Game.prototype.getResult = function (roundObject) {
+  const playerTotal = this.getHandTotal(roundObject.playerCards)
+  const dealerTotal = this.getHandTotal(roundObject.dealerCards)
+
+  whoWon = "";
+
+  if (playerTotal > 21) {
+    whoWon = "You went Bust!"
+  }
+  else if (dealerTotal > 21) {
+    whoWon = "Dealer went Bust!"
+  }
+  else if (dealerTotal > playerTotal) {
+    whoWon = "Dealer wins!"
+  }
+  else if (playerTotal > dealerTotal) {
+    whoWon = "You win!";
+  }
+  else {
+    whoWon = "It's a draw!"
+  }
+
+  PubSub.publish("Game:result-loaded", whoWon);
+};
 
 Game.prototype.getHandTotal = function (array) {
   total = 0;
@@ -127,7 +127,9 @@ Game.prototype.renderChoice = function (roundObject) {
 }
 
 Game.prototype.bustChecker = function (roundObject) {
-
+  if (this.getHandTotal(roundObject.playerCards) > 21) {
+    this.getResult(roundObject);
+  }
 }
 
 
