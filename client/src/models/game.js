@@ -7,14 +7,14 @@ const Game = function () {
 }
 
 Game.prototype.bindEvents = function () {
-  // will later need to listen for player Play Again button click --> trigger draw more cards from same deck
-
+  //  listen for player Play Again button click --> trigger draw more cards from same deck
 };
 
 Game.prototype.getShuffledDeck = function () {
   this.requestDeck.get()
     .then((shuffledDeck) => {
       this.newCardsUrl = `https://deckofcardsapi.com/api/deck/${ shuffledDeck.deck_id }/draw/?count=2`;
+      this.deckId = shuffledDeck.deck_id;
       return shuffledDeck.deck_id;
     })
     .then((deckId) => {
@@ -45,14 +45,7 @@ Game.prototype.dealCards = function (deckId) {
 
 Game.prototype.convert = function (drawnCards) {
   drawnCards.forEach((cardObject) => {
-    // decide where we want the values re-assigned:
-    if (cardObject.value === "JACK") {
-      cardObject.value = "10";
-    }
-    else if (cardObject.value === "QUEEN") {
-      cardObject.value = "10";
-    }
-    else if (cardObject.value === "KING") {
+    if ((cardObject.value === "JACK") || (cardObject.value === "QUEEN") || (cardObject.value === "KING")) {
       cardObject.value = "10";
     }
     else if (cardObject.value === "ACE") {
@@ -61,65 +54,7 @@ Game.prototype.convert = function (drawnCards) {
   });
 };
 
-// Game.prototype.dealPlayerTwoCards = function () {
-//   this.requestCards = new RequestHelper(this.newCardsUrl);
-//   this.requestCards.get()
-//     .then((drawnCards) => {
-//       this.playerCards = drawnCards.cards;
-//       PubSub.publish("Game:player-cards-ready", this.playerCards);
-//       return this.playerCards;
-//     })
-//     .then(() => {
-//       this.playerCards.forEach((cardObject) => {
-//         // decide where we want the values re-assigned:
-//         if (cardObject.value === "JACK") {
-//           cardObject.value = "10";
-//         }
-//         else if (cardObject.value === "QUEEN") {
-//           cardObject.value = "10";
-//         }
-//         else if (cardObject.value === "KING") {
-//           cardObject.value = "10";
-//         }
-//         else if (cardObject.value === "ACE") {
-//           cardObject.value = "11";
-//         }
-//       });
-//       return this.playerCards;
-//     })
-// };
-//
-// Game.prototype.dealDealerTwoCards = function () {
-//   this.requestCards = new RequestHelper(this.newCardsUrl);
-//   this.requestCards.get()
-//     .then((drawnCards) => {
-//       this.dealerCards = drawnCards.cards;
-//       PubSub.publish("Game:dealer-cards-ready", this.dealerCards);
-//     })
-//     .then(() => {
-//       this.dealerCards.forEach((cardObject) => {
-//         if (cardObject.value === "JACK") {
-//           cardObject.value = "10";
-//         }
-//         else if (cardObject.value === "QUEEN") {
-//           cardObject.value = "10";
-//         }
-//         else if (cardObject.value === "KING") {
-//           cardObject.value = "10";
-//         }
-//         else if (cardObject.value === "ACE") {
-//           cardObject.value = "11";
-//         }
-//       });
-//     })
-// };
-
 Game.prototype.getResult = function (roundObject) {
-  console.log(roundObject);
-  // roundObject = {
-  //   dealerCards: [array of cards],
-  //   playerCards: [array of cards]
-  // }
   playerTotal = 0;
   dealerTotal = 0;
   roundObject.dealerCards.forEach((card) => {
@@ -128,13 +63,12 @@ Game.prototype.getResult = function (roundObject) {
   roundObject.playerCards.forEach((card) => {
     playerTotal += Number(card.value)
   });
-  console.log(playerTotal);
   console.log(dealerTotal);
+  console.log(playerTotal);
   // if playerTotal > dealerTotal
   // this.getPlayerTotal();
   // this.getDealerTotal();
   // TODO calc who wins
-  console.log('hellooo');
 
   whoWon = "";
 
@@ -149,12 +83,6 @@ Game.prototype.getResult = function (roundObject) {
   }
 
   PubSub.publish("Game:result-loaded", whoWon);
-
 };
-
-// Game.prototype.getPlayerTotal = function () {
-//   console.log(this.playerCards); // --> CURRENTLY EMPTY ARRAY - check order of functions being called
-//
-// };
 
 module.exports = Game;
