@@ -7,8 +7,7 @@ const Game = function () {
 }
 
 Game.prototype.bindEvents = function () {
-  // will later need to listen for player Play Again button click --> trigger draw more cards from same deck
-
+  //  listen for player Play Again button click --> trigger draw more cards from same deck
 };
 
 Game.prototype.getShuffledDeck = function () {
@@ -61,65 +60,7 @@ Game.prototype.convert = function (drawnCards) {
   });
 };
 
-// Game.prototype.dealPlayerTwoCards = function () {
-//   this.requestCards = new RequestHelper(this.newCardsUrl);
-//   this.requestCards.get()
-//     .then((drawnCards) => {
-//       this.playerCards = drawnCards.cards;
-//       PubSub.publish("Game:player-cards-ready", this.playerCards);
-//       return this.playerCards;
-//     })
-//     .then(() => {
-//       this.playerCards.forEach((cardObject) => {
-//         // decide where we want the values re-assigned:
-//         if (cardObject.value === "JACK") {
-//           cardObject.value = "10";
-//         }
-//         else if (cardObject.value === "QUEEN") {
-//           cardObject.value = "10";
-//         }
-//         else if (cardObject.value === "KING") {
-//           cardObject.value = "10";
-//         }
-//         else if (cardObject.value === "ACE") {
-//           cardObject.value = "11";
-//         }
-//       });
-//       return this.playerCards;
-//     })
-// };
-//
-// Game.prototype.dealDealerTwoCards = function () {
-//   this.requestCards = new RequestHelper(this.newCardsUrl);
-//   this.requestCards.get()
-//     .then((drawnCards) => {
-//       this.dealerCards = drawnCards.cards;
-//       PubSub.publish("Game:dealer-cards-ready", this.dealerCards);
-//     })
-//     .then(() => {
-//       this.dealerCards.forEach((cardObject) => {
-//         if (cardObject.value === "JACK") {
-//           cardObject.value = "10";
-//         }
-//         else if (cardObject.value === "QUEEN") {
-//           cardObject.value = "10";
-//         }
-//         else if (cardObject.value === "KING") {
-//           cardObject.value = "10";
-//         }
-//         else if (cardObject.value === "ACE") {
-//           cardObject.value = "11";
-//         }
-//       });
-//     })
-// };
-
 Game.prototype.getResult = function (roundObject) {
-  console.log(roundObject);
-  // roundObject = {
-  //   dealerCards: [array of cards],
-  //   playerCards: [array of cards]
-  // }
   playerTotal = 0;
   dealerTotal = 0;
   roundObject.dealerCards.forEach((card) => {
@@ -149,12 +90,6 @@ Game.prototype.getResult = function (roundObject) {
   }
 
   PubSub.publish("Game:result-loaded", whoWon);
-
 };
-
-// Game.prototype.getPlayerTotal = function () {
-//   console.log(this.playerCards); // --> CURRENTLY EMPTY ARRAY - check order of functions being called
-//
-// };
 
 module.exports = Game;
