@@ -100,7 +100,7 @@ p {
 
 button {
   border-radius: 4px;
-  background-color: #250220;
+  background-color: #266DD3;
   border: 2px solid white;
   color: #FFFFFF;
   text-align: center;
@@ -114,11 +114,11 @@ button {
 }
 
 button:hover {
-  background-color: black;
+  background-color: #344055;
 }
 
 hr {
     border: 0;
     height: 1px;
-    background-image: linear-gradient(to right, #250220, white, #250220);
+    background-image: linear-gradient(to right, #344055, white, #344055);
 }
