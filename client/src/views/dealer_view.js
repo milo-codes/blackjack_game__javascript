@@ -7,13 +7,14 @@ const DealerView = function (container) {
 
 DealerView.prototype.bindEvents = function () {
   PubSub.subscribe("Game:dealer-cards-ready", (event) => {
-    this.render(event.detail);
+    this.renderHidden(event.detail);
   });
+  PubSub.subscribe("Game:dealer-drawn-card-ready", (event) => {
+    this.renderRevealed(event.detail);
+  })
 };
 
-
-
-DealerView.prototype.render = function (cards) {
+DealerView.prototype.renderHidden = function (cards) {
   this.container.innerHTML = "";
 
   cards.forEach( (card, index) => {
@@ -30,5 +31,16 @@ DealerView.prototype.render = function (cards) {
     }
 })};
 
+DealerView.prototype.renderRevealed = function (cards) {
+  this.container.innerHTML = "";
+  cards.forEach( (card) => {
+    const cardImage = document.createElement('img');
+    cardImage.src = card.image;
+    this.container.appendChild(cardImage);
+  });
+};
+
+//pubsub subscribe "stick" click.
+//when clicked the card index 0 is revealed
 
 module.exports = DealerView;
