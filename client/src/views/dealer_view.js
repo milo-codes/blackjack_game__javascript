@@ -25,11 +25,13 @@ DealerView.prototype.renderHidden = function (cards) {
     if (index == 0) {
       const hiddenCardImage = document.createElement('img');
       hiddenCardImage.src = "/css/hidden_card.png";
+      hiddenCardImage.classList.add('card_image');
       this.container.appendChild(hiddenCardImage);
     }
     else {
       const cardImage = document.createElement('img');
       cardImage.src = card.image;
+      cardImage.classList.add('card_image');
       this.container.appendChild(cardImage);
     }
 })};
@@ -39,6 +41,7 @@ DealerView.prototype.renderRevealed = function (cards) {
   cards.forEach( (card) => {
     const cardImage = document.createElement('img');
     cardImage.src = card.image;
+    cardImage.classList.add('card_image');
     this.container.appendChild(cardImage);
   });
 };

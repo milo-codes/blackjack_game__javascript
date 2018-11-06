@@ -18,6 +18,7 @@ h1 {
   width: 120px;
   height: auto;
   float:left;
+  padding: 10px;
 }
 
 #fun-stops {
@@ -57,7 +58,7 @@ p {
 }
 
 .topnav a:hover {
-  background-color: #250220;
+  background-color: #266DD3;
   color: white;
 }
 
@@ -65,11 +66,27 @@ p {
 #dealer_container{
   text-align: center;
   color: white;
+  padding: 30px;
+  width: 50%;
+  margin: auto;
+  margin-top: -150px;
+  height: auto;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 120px;
 }
 
 #player_container{
   text-align: center;
   color: white;
+  padding: 30px;
+  width: 50%;
+  margin: auto;
+  margin-top: -150px;
+  height: auto;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 120px;
+  /* box-shadow: 1px 1px 20px 20px rgba(0,0,0,0.5); */
+
 }
 
 #result_container{
@@ -90,6 +107,8 @@ p {
   float:none;
   height: auto;
   width: 100px;
+  margin: auto;
+  margin: 10px;
 }
 
 .pretty-text-underline {
@@ -123,4 +142,46 @@ hr {
     border: 0;
     height: 1px;
     background-image: linear-gradient(to right, #344055, white, #344055);
+}
+
+#player_text {
+  width: 20%;
+  margin-top: 100px;
+  margin-left: 75px;
+}
+
+#player_total {
+  /* border: 3px solid salmon; */
+  /* width: 10%; */
+  float: right;
+  margin-right: 140px;
+  margin-top: -150px;
+  padding-left: 25px;
+  padding-right: 25px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 100px;
+  box-shadow: 1px 1px 20px 20px rgba(0,0,0,0.5);
+}
+
+#dealer_text {
+  width: 20%;
+  margin-top: 100px;
+  margin-left: 75px;
+}
+
+#dealer_total {
+  /* border: 3px solid salmon; */
+  /* width: 10%; */
+  float: right;
+  margin-right: 140px;
+  margin-top: -150px;
+  padding-left: 25px;
+  padding-right: 25px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 100px;
+  box-shadow: 1px 1px 20px 20px rgba(0,0,0,0.5);
+}
+
+.card_image {
+  padding: 3px;
 }
