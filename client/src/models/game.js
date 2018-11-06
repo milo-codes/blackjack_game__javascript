@@ -45,14 +45,24 @@ Game.prototype.dealCards = function (deckId) {
       this.convert(drawnCards.cards)
       this.roundObject.playerCards = drawnCards.cards;
       PubSub.publish("Game:player-cards-ready", this.roundObject.playerCards);
+      console.log("line 48");
+      const playerTotal = this.getHandTotal(this.roundObject.playerCards);
+      console.log(playerTotal);
+      PubSub.publish("Game:player-total", playerTotal);
     })
     .then(() => {
       this.requestCards.get()
         .then((drawnCards) => {
           this.convert(drawnCards.cards)
           this.roundObject.dealerCards = drawnCards.cards;
+
           PubSub.publish("Game:dealer-cards-ready", this.roundObject.dealerCards);
           this.blackJackChecker(this.roundObject);
+
+          console.log("we are at dealercards");
+
+          const dealerTotal = this.getHandTotal(this.roundObject.dealerCards);
+          PubSub.publish("Game:dealer-total", dealerTotal);
         });
     })
 };
@@ -64,6 +74,13 @@ Game.prototype.drawOneCard = function (array, actor) {
     .then((cardObject) => {
       this.convert(cardObject.cards);
       array.push(cardObject.cards[0]);
+
+      const dealerTotal = this.getHandTotal(this.roundObject.dealerCards)
+      PubSub.publish("Game:dealer-total", dealerTotal);
+
+      const playerTotal = this.getHandTotal(this.roundObject.playerCards)
+      PubSub.publish("Game:player-total", playerTotal);
+
       PubSub.publish(`Game:${ actor }-drawn-card-ready`, array);
       this.bustChecker(this.roundObject);
       return array;

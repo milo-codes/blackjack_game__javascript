@@ -11,7 +11,10 @@ DealerView.prototype.bindEvents = function () {
   });
   PubSub.subscribe("Game:dealer-drawn-card-ready", (event) => {
     this.renderRevealed(event.detail);
-  })
+  });
+  PubSub.subscribe("Game:dealer-total", (total) => {
+    this.renderTotal(total);
+  });
 };
 
 DealerView.prototype.renderHidden = function (cards) {
@@ -38,6 +41,15 @@ DealerView.prototype.renderRevealed = function (cards) {
     cardImage.src = card.image;
     this.container.appendChild(cardImage);
   });
+};
+
+DealerView.prototype.renderTotal = function (total) {
+  const box = document.querySelector('div#dealer_total');
+  box.innerHTML = "";
+  console.log("this is total dot detail:", total.detail);
+  const totalCounter = document.createElement('p');
+  totalCounter.textContent = total.detail;
+  box.appendChild(totalCounter);
 };
 
 

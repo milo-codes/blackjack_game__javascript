@@ -11,6 +11,9 @@ PlayerView.prototype.bindEvents = function () {
   PubSub.subscribe("Game:player-drawn-card-ready", (event) => {
     this.render(event.detail);
   });
+  PubSub.subscribe("Game:player-total", (total) => {
+    this.renderTotal(total);
+  });
 
 };
 
@@ -23,5 +26,14 @@ PlayerView.prototype.render = function (cards) {
   cardImage.src = card.image;
   this.container.appendChild(cardImage);
 })};
+
+PlayerView.prototype.renderTotal = function (total) {
+  const box = document.querySelector('div#player_total');
+  box.innerHTML = "";
+  console.log("this is total dot detail:", total.detail);
+  const totalCounter = document.createElement('p');
+  totalCounter.textContent = total.detail;
+  box.appendChild(totalCounter);
+};
 
 module.exports = PlayerView;
