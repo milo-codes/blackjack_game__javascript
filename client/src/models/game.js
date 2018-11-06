@@ -186,6 +186,7 @@ Game.prototype.checkForEleven = function (cards) {
     PubSub.publish("Game:player-total", playerTotal);
   }
   else {
+    PubSub.publish(`Game:dealer-drawn-card-ready`, this.roundObject.dealerCards);
     this.getResult(this.roundObject);
   };
 };
