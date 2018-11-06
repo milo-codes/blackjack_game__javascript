@@ -1,3 +1,54 @@
+// TEST CARD DETAILS
+
+const two = {
+  value: "2",
+  image: "https://deckofcardsapi.com/static/img/2C.png"
+};
+
+const three = {
+  value: "3",
+  image: "https://deckofcardsapi.com/static/img/3C.png"
+};
+
+const four = {
+  value: "4",
+  image: "https://deckofcardsapi.com/static/img/4C.png"
+};
+
+const five = {
+  value: "5",
+  image: "https://deckofcardsapi.com/static/img/5C.png"
+};
+const six = {
+  value: "6",
+  image: "https://deckofcardsapi.com/static/img/6C.png"
+};
+const seven = {
+  value: "7",
+  image: "https://deckofcardsapi.com/static/img/7C.png"
+};
+
+const eight = {
+  value: "8",
+  image: "https://deckofcardsapi.com/static/img/8C.png"
+};
+
+const nine = {
+  value: "9",
+  image: "https://deckofcardsapi.com/static/img/9C.png"
+};
+
+const king = {
+  value: "10",
+  image: "https://deckofcardsapi.com/static/img/KC.png"
+};
+
+const ace = {
+  value: "11",
+  image: "https://deckofcardsapi.com/static/img/AC.png"
+};
+
+// start of game.js code with modified deal and draw functions:
 const RequestHelper = require('../helpers/request_helper.js');
 const PubSub = require("../helpers/pub_sub.js");
 
@@ -44,50 +95,39 @@ Game.prototype.getShuffledDeck = function () {
 
 // initial deal - two cards each, first dealer card hidden
 Game.prototype.dealCards = function (deckId) {
-  this.requestCards = new RequestHelper(this.newCardsUrl);
-  this.requestCards.get()
-    .then((drawnCards) => {
-      this.convert(drawnCards.cards);
-      this.roundObject.dealerCards = drawnCards.cards;
-      PubSub.publish("Game:dealer-cards-ready", this.roundObject.dealerCards);
-    })
-    .then(() => {
-      this.requestCards.get()
-        .then((drawnCards) => {
-          console.log("DRAWN CARDS:", drawnCards);
-          this.convert(drawnCards.cards);
-          this.roundObject.playerCards = drawnCards.cards;
-          PubSub.publish("Game:player-cards-ready", this.roundObject.playerCards);
-          const playerTotal = this.getHandTotal(this.roundObject.playerCards);
-          PubSub.publish("Game:player-total", playerTotal);
-          this.blackJackChecker(this.roundObject);
-        })
-    });
+
+  // TEST CARDS FOR DEALER
+  let testDealerCardsArray = [two, three];
+  // TEST CARDS FOR DEALER
+
+  this.roundObject.dealerCards = testDealerCardsArray;
+  PubSub.publish("Game:dealer-cards-ready", this.roundObject.dealerCards);
+
+  // TEST CARDS FOR PLAYER
+  let testPlayerCardsArray = [four, five];
+  // TEST CARDS FOR PLAYER
+
+  this.roundObject.playerCards = testPlayerCardsArray;
+  PubSub.publish("Game:player-cards-ready", this.roundObject.playerCards);
+  const playerTotal = this.getHandTotal(this.roundObject.playerCards);
+  PubSub.publish("Game:player-total", playerTotal);
+  this.blackJackChecker(this.roundObject);
 };
 
 // an actor draws one card into their card array
 Game.prototype.drawOneCard = function (array, actor) {
-  this.drawOneUrl = `https://deckofcardsapi.com/api/deck/${ this.deckId }/draw/?count=1`;
-  this.requestOneCard = new RequestHelper(this.drawOneUrl);
-  this.requestOneCard.get()
-    .then((cardObject) => {
-      this.convert(cardObject.cards);
-      array.push(cardObject.cards[0]);
+  // TEST CARD DRAW FOR PLAYER
+  array.push(six);
+  // TEST CARD DRAW FOR PLAYER
 
-      const playerTotal = this.getHandTotal(this.roundObject.playerCards)
-      const ceeerds = this.getHandTotal(cardObject.cards);
-      PubSub.publish("Game:player-total", playerTotal);
-      console.log('playercards:',playerTotal);
-      console.log('cerds:',ceeerds);
-      PubSub.publish(`Game:${ actor }-drawn-card-ready`, array);
-      this.bustChecker(this.roundObject);
-      return array;
-    })
-    .then((array) => {
-      if (actor == `dealer`) {
-        this.renderDealerAction(array)
-      }
-    })
+  const playerTotal = this.getHandTotal(this.roundObject.playerCards)
+  PubSub.publish("Game:player-total", playerTotal);
+  PubSub.publish(`Game:${ actor }-drawn-card-ready`, array);
+  this.bustChecker(this.roundObject);
+
+  if (actor == `dealer`) {
+    this.renderDealerAction(array)
+  }
 };
 
 // triggered after player 'sticks' and recurrs if condition true
