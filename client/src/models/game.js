@@ -139,12 +139,44 @@ Game.prototype.renderChoice = function (roundObject) {
 }
 
 Game.prototype.bustChecker = function (roundObject) {
-  if ((this.getHandTotal(roundObject.playerCards) > 21) || (this.getHandTotal(roundObject.dealerCards) > 21)) {
-    this.getResult(roundObject);
+  console.log('bustcheker should be sued everytime you get a card');
+  // if ((this.getHandTotal(roundObject.playerCards) > 21) || (this.getHandTotal(roundObject.dealerCards) > 21)) {
+  //   console.log('roundboject:',roundObject);
+  //   this.checkForEleven();
+  // };
+
+
+
+  if (this.getHandTotal(roundObject.playerCards) > 21) {
+    this.checkForEleven(roundObject.playerCards);
+  }
+  else if (this.getHandTotal(roundObject.dealerCards) > 21) {
+    this.checkForEleven(roundObject.dealerCards);
+  }
+  else {
+    nil
   }
 };
 
-// TODO Ace Checker
+Game.prototype.checkForEleven = function (cards) {
+  console.log('check for eleven has been called. someone went bust');
+
+  console.log('cards:', cards);
+  const elevenCard = cards.find( card => card.value == 11);
+  console.log('elevencard:',elevenCard);
+  if (elevenCard != undefined) {
+    var code = elevenCard.code;
+
+    //use the elevenCard id to find the same card in this.roundObject
+    //set the this.roundObject.card.value = 1
+    elevenCard.value = 1
+    console.log('you had an ace. you are now swelllll');
+  }
+  else {
+    console.log('no ace. you are really bust');
+    this.getResult(this.roundObject);
+  };
+};
 
 
 module.exports = Game;
