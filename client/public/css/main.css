@@ -71,6 +71,8 @@ p {
   margin: auto;
   margin-top: -150px;
   height: auto;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 120px;
 }
 
 #player_container{
@@ -81,6 +83,9 @@ p {
   margin: auto;
   margin-top: -150px;
   height: auto;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 120px;
+  /* box-shadow: 1px 1px 20px 20px rgba(0,0,0,0.5); */
 
 }
 
@@ -142,7 +147,7 @@ hr {
 #player_text {
   width: 20%;
   margin-top: 100px;
-  margin-left: 100px;
+  margin-left: 75px;
 }
 
 #player_total {
@@ -161,7 +166,7 @@ hr {
 #dealer_text {
   width: 20%;
   margin-top: 100px;
-  margin-left: 100px;
+  margin-left: 75px;
 }
 
 #dealer_total {
