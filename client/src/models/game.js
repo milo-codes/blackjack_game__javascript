@@ -153,23 +153,17 @@ Game.prototype.bustChecker = function (roundObject) {
   else if (this.getHandTotal(roundObject.dealerCards) > 21) {
     this.checkForEleven(roundObject.dealerCards);
   }
-  else {
-    nil
-  }
+  
 };
 
 Game.prototype.checkForEleven = function (cards) {
   console.log('check for eleven has been called. someone went bust');
 
   console.log('cards:', cards);
-  const elevenCard = cards.find( card => card.value == 11);
+  const elevenCard = cards.find( card => card.value == "11");
   console.log('elevencard:',elevenCard);
   if (elevenCard != undefined) {
-    var code = elevenCard.code;
-
-    //use the elevenCard id to find the same card in this.roundObject
-    //set the this.roundObject.card.value = 1
-    elevenCard.value = 1
+    elevenCard.value = "1"
     console.log('you had an ace. you are now swelllll');
   }
   else {
