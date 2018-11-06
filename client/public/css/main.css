@@ -88,6 +88,8 @@ p {
   text-align: center;
   vertical-align: middle;
   float:none;
+  height: auto;
+  width: 100px;
 }
 
 .pretty-text-underline {
