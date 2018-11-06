@@ -47,14 +47,15 @@ Game.prototype.dealCards = function (deckId) {
   this.requestCards = new RequestHelper(this.newCardsUrl);
   this.requestCards.get()
     .then((drawnCards) => {
-      this.convert(drawnCards.cards)
+      this.convert(drawnCards.cards);
       this.roundObject.dealerCards = drawnCards.cards;
       PubSub.publish("Game:dealer-cards-ready", this.roundObject.dealerCards);
     })
     .then(() => {
       this.requestCards.get()
         .then((drawnCards) => {
-          this.convert(drawnCards.cards)
+          console.log("DRAWN CARDS:", drawnCards);
+          this.convert(drawnCards.cards);
           this.roundObject.playerCards = drawnCards.cards;
           PubSub.publish("Game:player-cards-ready", this.roundObject.playerCards);
           const playerTotal = this.getHandTotal(this.roundObject.playerCards);
