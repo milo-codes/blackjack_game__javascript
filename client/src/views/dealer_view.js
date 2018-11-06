@@ -40,7 +40,5 @@ DealerView.prototype.renderRevealed = function (cards) {
   });
 };
 
-//pubsub subscribe "stick" click.
-//when clicked the card index 0 is revealed
 
 module.exports = DealerView;

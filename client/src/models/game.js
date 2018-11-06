@@ -20,7 +20,10 @@ Game.prototype.bindEvents = function () {
 
   PubSub.subscribe("ResultView:stick-button-click", () => {
     PubSub.publish(`Game:dealer-drawn-card-ready`, this.roundObject.dealerCards);
-    this.renderDealerAction(this.roundObject.dealerCards);
+    setTimeout(() => {
+      console.log(this);
+      this.renderDealerAction(this.roundObject.dealerCards);
+    }, 1000);
   });
 };
 
