@@ -8,8 +8,10 @@ PlayerView.prototype.bindEvents = function () {
   PubSub.subscribe("Game:player-cards-ready", (event) => {
     this.render(event.detail);
   });
-//subscribe to model(2 cards)
-// render method
+  PubSub.subscribe("Game:player-drawn-card-ready", (event) => {
+    this.render(event.detail);
+  });
+
 };
 
 // define the render method

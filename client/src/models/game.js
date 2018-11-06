@@ -19,7 +19,11 @@ Game.prototype.bindEvents = function () {
   });
 
   PubSub.subscribe("ResultView:stick-button-click", () => {
-    this.renderDealerAction(this.roundObject.dealerCards)
+    PubSub.publish(`Game:dealer-drawn-card-ready`, this.roundObject.dealerCards);
+    setTimeout(() => {
+      console.log(this);
+      this.renderDealerAction(this.roundObject.dealerCards);
+    }, 1000);
   });
 };
 
@@ -61,7 +65,7 @@ Game.prototype.drawOneCard = function (array, actor) {
     .then((cardObject) => {
       this.convert(cardObject.cards);
       array.push(cardObject.cards[0]);
-      PubSub.publish(`Game:${ actor }-cards-ready`, array);
+      PubSub.publish(`Game:${ actor }-drawn-card-ready`, array);
       this.bustChecker(this.roundObject);
       return array;
     })
