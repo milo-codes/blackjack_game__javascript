@@ -76,17 +76,20 @@ p {
   text-align: center;
   color: white;
   /* border: 5px solid white; */
-  width: 200px;
-  height: auto;
-  margin-right: auto;
-  margin-left: auto;
+  /* width: 200px;
+  height: auto; */
+  /* margin-right: auto;
+  margin-left: auto; */
   /* display: inline-block; */
   }
 
 #result_container .player-choice-button {
   display: inline-block;
   text-align: center;
-
+  vertical-align: middle;
+  float:none;
+  height: auto;
+  width: 100px;
 }
 
 .pretty-text-underline {
@@ -98,9 +101,8 @@ p {
 }
 
 button {
-  /* display: inline-block; */
   border-radius: 4px;
-  background-color: #250220;
+  background-color: #266DD3;
   border: 2px solid white;
   color: #FFFFFF;
   text-align: center;
@@ -114,11 +116,11 @@ button {
 }
 
 button:hover {
-  background-color: black;
+  background-color: #344055;
 }
 
 hr {
     border: 0;
     height: 1px;
-    background-image: linear-gradient(to right, #250220, white, #250220);
+    background-image: linear-gradient(to right, #344055, white, #344055);
 }

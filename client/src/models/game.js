@@ -124,10 +124,10 @@ Game.prototype.getResult = function (roundObject) {
   whoWon = "";
 
   if (playerTotal > 21) {
-    whoWon = "You went Bust!"
+    whoWon = "You went Bust! Dealer wins!"
   }
   else if (dealerTotal > 21) {
-    whoWon = "Dealer went Bust!"
+    whoWon = "Dealer went Bust! You win!"
   }
   else if (dealerTotal > playerTotal) {
     whoWon = "Dealer wins!"

@@ -31,7 +31,7 @@ ResultView.prototype.renderChoice = function () {
 
   const hitButton = document.createElement("button");
   hitButton.classList.add("player-choice-button");
-  hitButton.textContent = "Geez a cerd!";
+  hitButton.textContent = "Hit";
   this.container.appendChild(hitButton);
   hitButton.addEventListener("click", () => {
     PubSub.publish("ResultView:hit-button-click")
@@ -39,7 +39,7 @@ ResultView.prototype.renderChoice = function () {
 
   const stickButton = document.createElement("button");
   stickButton.classList.add("player-choice-button");
-  stickButton.textContent = "Nae maer!";
+  stickButton.textContent = "Stick";
   this.container.appendChild(stickButton);
   stickButton.addEventListener("click", () => {
     PubSub.publish("ResultView:stick-button-click")
