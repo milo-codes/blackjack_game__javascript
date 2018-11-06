@@ -49,9 +49,7 @@ Game.prototype.dealCards = function (deckId) {
       this.convert(drawnCards.cards)
       this.roundObject.playerCards = drawnCards.cards;
       PubSub.publish("Game:player-cards-ready", this.roundObject.playerCards);
-      console.log("line 48");
       const playerTotal = this.getHandTotal(this.roundObject.playerCards);
-      console.log(playerTotal);
       PubSub.publish("Game:player-total", playerTotal);
     })
     .then(() => {
@@ -78,8 +76,10 @@ Game.prototype.drawOneCard = function (array, actor) {
 
 
       const playerTotal = this.getHandTotal(this.roundObject.playerCards)
+      const ceeerds = this.getHandTotal(cardObject.cards);
       PubSub.publish("Game:player-total", playerTotal);
-
+      console.log('playercards:',playerTotal);
+      console.log('cerds:',ceeerds);
       PubSub.publish(`Game:${ actor }-drawn-card-ready`, array);
       this.bustChecker(this.roundObject);
       return array;
@@ -116,6 +116,9 @@ Game.prototype.convert = function (drawnCards) {
 Game.prototype.getResult = function (roundObject) {
   const playerTotal = this.getHandTotal(roundObject.playerCards)
   const dealerTotal = this.getHandTotal(roundObject.dealerCards)
+
+  PubSub.publish("Game:player-total", playerTotal);
+  PubSub.publish("Game:dealer-total", dealerTotal);
 
   whoWon = "";
 
@@ -179,6 +182,8 @@ Game.prototype.checkForEleven = function (cards) {
   const elevenCard = cards.find( card => card.value == "11");
   if (elevenCard != undefined) {
     elevenCard.value = "1"
+    const playerTotal = this.getHandTotal(this.roundObject.playerCards);
+    PubSub.publish("Game:player-total", playerTotal);
   }
   else {
     this.getResult(this.roundObject);
