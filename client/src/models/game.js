@@ -75,8 +75,9 @@ Game.prototype.drawOneCard = function (array, actor) {
 Game.prototype.renderDealerAction = function (array) {
   if (this.getHandTotal(array) <= 16) {
     this.drawOneCard(array, `dealer`)
-  };
-  this.getResult(this.roundObject);
+  }
+  else{
+  this.getResult(this.roundObject)};
 };
 
 Game.prototype.convert = function (drawnCards) {
@@ -153,7 +154,7 @@ Game.prototype.bustChecker = function (roundObject) {
   else if (this.getHandTotal(roundObject.dealerCards) > 21) {
     this.checkForEleven(roundObject.dealerCards);
   }
-  
+
 };
 
 Game.prototype.checkForEleven = function (cards) {
