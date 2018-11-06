@@ -33,6 +33,10 @@ img {
   float: center;
 }
 
+img:hover {
+  -webkit-transform: rotateZ(20deg);
+}
+
 p {
   color: white;
   font-size: 30px;
