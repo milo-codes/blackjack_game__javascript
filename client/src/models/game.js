@@ -21,7 +21,6 @@ Game.prototype.bindEvents = function () {
   PubSub.subscribe("ResultView:stick-button-click", () => {
     PubSub.publish(`Game:dealer-drawn-card-ready`, this.roundObject.dealerCards);
     setTimeout(() => {
-      console.log(this);
       this.renderDealerAction(this.roundObject.dealerCards);
     }, 1000);
   });
@@ -145,14 +144,6 @@ Game.prototype.renderChoice = function (roundObject) {
 }
 
 Game.prototype.bustChecker = function (roundObject) {
-  console.log('bustcheker should be sued everytime you get a card');
-  // if ((this.getHandTotal(roundObject.playerCards) > 21) || (this.getHandTotal(roundObject.dealerCards) > 21)) {
-  //   console.log('roundboject:',roundObject);
-  //   this.checkForEleven();
-  // };
-
-
-
   if (this.getHandTotal(roundObject.playerCards) > 21) {
     this.checkForEleven(roundObject.playerCards);
   }
@@ -163,17 +154,12 @@ Game.prototype.bustChecker = function (roundObject) {
 };
 
 Game.prototype.checkForEleven = function (cards) {
-  console.log('check for eleven has been called. someone went bust');
 
-  console.log('cards:', cards);
   const elevenCard = cards.find( card => card.value == "11");
-  console.log('elevencard:',elevenCard);
   if (elevenCard != undefined) {
     elevenCard.value = "1"
-    console.log('you had an ace. you are now swelllll');
   }
   else {
-    console.log('no ace. you are really bust');
     this.getResult(this.roundObject);
   };
 };
