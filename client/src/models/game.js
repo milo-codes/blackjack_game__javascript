@@ -63,21 +63,20 @@ Game.prototype.drawOneCard = function (array, actor) {
       array.push(cardObject.cards[0]);
       PubSub.publish(`Game:${ actor }-cards-ready`, array);
       this.bustChecker(this.roundObject);
+      return array;
+    })
+    .then((array) => {
+      if (actor == `dealer`) {
+        this.renderDealerAction(array)
+      }
     })
 };
 
 Game.prototype.renderDealerAction = function (array) {
   if (this.getHandTotal(array) <= 16) {
-    this.drawOneCard(array, `dealer`);
-    if (this.getHandTotal(array) <= 16) {
-      this.drawOneCard(array, `dealer`);
-      if (this.getHandTotal(array) <= 16) {
-        this.drawOneCard(array, `dealer`);
-      };
-    };
+    this.drawOneCard(array, `dealer`)
   };
   this.getResult(this.roundObject);
-  // TODO - not waiting for the API req and therefor checking old total and looping infinitely
 };
 
 Game.prototype.convert = function (drawnCards) {
