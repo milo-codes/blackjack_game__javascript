@@ -5,8 +5,7 @@ const Game = function () {
   this.newDeckUrl = 'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=6';
   this.requestDeck = new RequestHelper(this.newDeckUrl);
   this.roundObject = {};
-
-}
+};
 
 Game.prototype.bindEvents = function () {
   const playAgainButton = document.querySelector("#play-again-button");
@@ -30,6 +29,7 @@ Game.prototype.bindEvents = function () {
   });
 };
 
+// start of game, new shuffled 6 deck & initial deal
 Game.prototype.getShuffledDeck = function () {
   this.requestDeck.get()
     .then((shuffledDeck) => {
@@ -40,31 +40,31 @@ Game.prototype.getShuffledDeck = function () {
     .then((deckId) => {
       this.dealCards(deckId);
     })
-}
+};
 
+// initial deal - two cards each, first dealer card hidden
 Game.prototype.dealCards = function (deckId) {
   this.requestCards = new RequestHelper(this.newCardsUrl);
   this.requestCards.get()
     .then((drawnCards) => {
       this.convert(drawnCards.cards)
-      this.roundObject.playerCards = drawnCards.cards;
-      PubSub.publish("Game:player-cards-ready", this.roundObject.playerCards);
-      const playerTotal = this.getHandTotal(this.roundObject.playerCards);
-      PubSub.publish("Game:player-total", playerTotal);
+      this.roundObject.dealerCards = drawnCards.cards;
+      PubSub.publish("Game:dealer-cards-ready", this.roundObject.dealerCards);
     })
     .then(() => {
       this.requestCards.get()
         .then((drawnCards) => {
           this.convert(drawnCards.cards)
-          this.roundObject.dealerCards = drawnCards.cards;
-
-          PubSub.publish("Game:dealer-cards-ready", this.roundObject.dealerCards);
+          this.roundObject.playerCards = drawnCards.cards;
+          PubSub.publish("Game:player-cards-ready", this.roundObject.playerCards);
+          const playerTotal = this.getHandTotal(this.roundObject.playerCards);
+          PubSub.publish("Game:player-total", playerTotal);
           this.blackJackChecker(this.roundObject);
-
-        });
-    })
+        })
+    });
 };
 
+// an actor draws one card into their card array
 Game.prototype.drawOneCard = function (array, actor) {
   this.drawOneUrl = `https://deckofcardsapi.com/api/deck/${ this.deckId }/draw/?count=1`;
   this.requestOneCard = new RequestHelper(this.drawOneUrl);
@@ -72,8 +72,6 @@ Game.prototype.drawOneCard = function (array, actor) {
     .then((cardObject) => {
       this.convert(cardObject.cards);
       array.push(cardObject.cards[0]);
-
-
 
       const playerTotal = this.getHandTotal(this.roundObject.playerCards)
       const ceeerds = this.getHandTotal(cardObject.cards);
@@ -91,6 +89,7 @@ Game.prototype.drawOneCard = function (array, actor) {
     })
 };
 
+// triggered after player 'sticks' and recurrs if condition true
 Game.prototype.renderDealerAction = function (array) {
   const dealerTotal = this.getHandTotal(this.roundObject.dealerCards)
   PubSub.publish("Game:dealer-total", dealerTotal);
@@ -102,6 +101,7 @@ Game.prototype.renderDealerAction = function (array) {
   this.getResult(this.roundObject)};
 };
 
+// converts picture cards and ace values as cards dealt/drawn
 Game.prototype.convert = function (drawnCards) {
   drawnCards.forEach((cardObject) => {
     if ((cardObject.value === "JACK") || (cardObject.value === "QUEEN") || (cardObject.value === "KING")) {
@@ -113,6 +113,7 @@ Game.prototype.convert = function (drawnCards) {
   });
 };
 
+// determines win/draw/bust and publishes result
 Game.prototype.getResult = function (roundObject) {
   const playerTotal = this.getHandTotal(roundObject.playerCards)
   const dealerTotal = this.getHandTotal(roundObject.dealerCards)
@@ -149,6 +150,7 @@ Game.prototype.getHandTotal = function (array) {
   return total;
 };
 
+// checks for Blackjack upon initial deal
 Game.prototype.blackJackChecker = function (roundObject) {
   const playerTotal = this.getHandTotal(roundObject.playerCards)
   const dealerTotal = this.getHandTotal(roundObject.dealerCards)
@@ -156,6 +158,7 @@ Game.prototype.blackJackChecker = function (roundObject) {
 
     PubSub.publish("Game:dealer-total", dealerTotal);
     this.getResult(roundObject);
+    // show dealer's hidden card if anyone has Blackjack:
     PubSub.publish(`Game:dealer-drawn-card-ready`, this.roundObject.dealerCards);
   }
   else {
@@ -163,10 +166,12 @@ Game.prototype.blackJackChecker = function (roundObject) {
   }
 };
 
+// if no Blackjack, player given choice to hit/stick
 Game.prototype.renderChoice = function (roundObject) {
   PubSub.publish("Game:choice-loaded");
 }
 
+// triggered each time card drawn:
 Game.prototype.bustChecker = function (roundObject) {
   if (this.getHandTotal(roundObject.playerCards) > 21) {
     this.checkForEleven(roundObject.playerCards);
@@ -174,9 +179,9 @@ Game.prototype.bustChecker = function (roundObject) {
   else if (this.getHandTotal(roundObject.dealerCards) > 21) {
     this.checkForEleven(roundObject.dealerCards);
   }
-
 };
 
+// handling ace value being 1 or 11:
 Game.prototype.checkForEleven = function (cards) {
 
   const elevenCard = cards.find( card => card.value == "11");
