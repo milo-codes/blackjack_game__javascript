@@ -58,7 +58,7 @@ p {
 }
 
 .topnav a:hover {
-  background-color: #250220;
+  background-color: #266DD3;
   color: white;
 }
 
@@ -103,6 +103,7 @@ p {
   height: auto;
   width: 100px;
   margin: auto;
+  margin: 10px;
 }
 
 .pretty-text-underline {
