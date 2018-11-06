@@ -11,6 +11,8 @@ const Game = function () {
 Game.prototype.bindEvents = function () {
   const playAgainButton = document.querySelector("#play-again-button");
   playAgainButton.addEventListener("click", () => {
+    const dealerTotalBox = document.querySelector('div#dealer_total');
+    dealerTotalBox.innerHTML = "";
     this.dealCards(this.deckId);
   });
 
@@ -23,6 +25,8 @@ Game.prototype.bindEvents = function () {
     setTimeout(() => {
       this.renderDealerAction(this.roundObject.dealerCards);
     }, 1000);
+    const dealerTotal = this.getHandTotal(this.roundObject.dealerCards)
+    PubSub.publish("Game:dealer-total", dealerTotal);
   });
 };
 
@@ -59,10 +63,6 @@ Game.prototype.dealCards = function (deckId) {
           PubSub.publish("Game:dealer-cards-ready", this.roundObject.dealerCards);
           this.blackJackChecker(this.roundObject);
 
-          console.log("we are at dealercards");
-
-          const dealerTotal = this.getHandTotal(this.roundObject.dealerCards);
-          PubSub.publish("Game:dealer-total", dealerTotal);
         });
     })
 };
@@ -75,8 +75,7 @@ Game.prototype.drawOneCard = function (array, actor) {
       this.convert(cardObject.cards);
       array.push(cardObject.cards[0]);
 
-      const dealerTotal = this.getHandTotal(this.roundObject.dealerCards)
-      PubSub.publish("Game:dealer-total", dealerTotal);
+
 
       const playerTotal = this.getHandTotal(this.roundObject.playerCards)
       PubSub.publish("Game:player-total", playerTotal);
@@ -93,6 +92,9 @@ Game.prototype.drawOneCard = function (array, actor) {
 };
 
 Game.prototype.renderDealerAction = function (array) {
+  const dealerTotal = this.getHandTotal(this.roundObject.dealerCards)
+  PubSub.publish("Game:dealer-total", dealerTotal);
+
   if (this.getHandTotal(array) <= 16) {
     this.drawOneCard(array, `dealer`)
   }
@@ -148,6 +150,8 @@ Game.prototype.blackJackChecker = function (roundObject) {
   const playerTotal = this.getHandTotal(roundObject.playerCards)
   const dealerTotal = this.getHandTotal(roundObject.dealerCards)
   if ((playerTotal == 21) || (dealerTotal == 21)) {
+
+    PubSub.publish("Game:dealer-total", dealerTotal);
     this.getResult(roundObject);
     PubSub.publish(`Game:dealer-drawn-card-ready`, this.roundObject.dealerCards);
   }
