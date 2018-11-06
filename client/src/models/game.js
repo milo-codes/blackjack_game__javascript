@@ -133,6 +133,7 @@ Game.prototype.blackJackChecker = function (roundObject) {
   const dealerTotal = this.getHandTotal(roundObject.dealerCards)
   if ((playerTotal == 21) || (dealerTotal == 21)) {
     this.getResult(roundObject);
+    PubSub.publish(`Game:dealer-drawn-card-ready`, this.roundObject.dealerCards);
   }
   else {
     this.renderChoice(roundObject);
