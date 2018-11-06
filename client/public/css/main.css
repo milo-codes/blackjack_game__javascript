@@ -102,6 +102,7 @@ p {
   float:none;
   height: auto;
   width: 100px;
+  margin: auto;
 }
 
 .pretty-text-underline {
