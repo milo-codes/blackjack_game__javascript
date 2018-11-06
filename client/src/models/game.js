@@ -70,13 +70,36 @@ Game.prototype.drawOneCard = function (array, actor) {
         this.renderDealerAction(array)
       }
     })
+  // if actor is dealer, renderDealerAction
 };
 
 Game.prototype.renderDealerAction = function (array) {
   if (this.getHandTotal(array) <= 16) {
     this.drawOneCard(array, `dealer`)
-  };
+    // this.drawOneUrl = `https://deckofcardsapi.com/api/deck/${ this.deckId }/draw/?count=1`;
+    // this.requestOneCard = new RequestHelper(this.drawOneUrl);
+    // this.requestOneCard.get()
+    //   .then((cardObject) => {
+    //     this.convert(cardObject.cards);
+    //     array.push(cardObject.cards[0]);
+    //     PubSub.publish(`Game:dealer-cards-ready`, array);
+    //     this.bustChecker(this.roundObject);
+    //     console.log("Finished Draw Card Function");
+    //     return array;
+    //   })
+    //   .then((array) => {
+    //     this.getResult(this.roundObject);
+    //     console.log("GETTING RESULT in if statement");
+    //   })
+    };
+
+    // .then((array) => {
+    //   console.log("REACH 2ND CHECK");
+    //   if (this.getHandTotal(array) <= 16) {
+    //   this.drawOneCard(array, `dealer`)}
+    // })};
   this.getResult(this.roundObject);
+  // TODO - not waiting for the API req and therefor checking old total and looping infinitely
 };
 
 Game.prototype.convert = function (drawnCards) {
