@@ -24,13 +24,13 @@ PlayerView.prototype.render = function (cards) {
   // card.image
   const cardImage = document.createElement("img");
   cardImage.src = card.image;
+  cardImage.classList.add('card_image');
   this.container.appendChild(cardImage);
 })};
 
 PlayerView.prototype.renderTotal = function (total) {
   const box = document.querySelector('div#player_total');
   box.innerHTML = "";
-  console.log("this is total dot detail:", total.detail);
   const totalCounter = document.createElement('p');
   totalCounter.textContent = total.detail;
   box.appendChild(totalCounter);

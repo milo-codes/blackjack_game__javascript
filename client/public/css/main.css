@@ -176,3 +176,7 @@ hr {
   border-radius: 100px;
   box-shadow: 1px 1px 20px 20px rgba(0,0,0,0.5);
 }
+
+.card_image {
+  padding: 5px;
+}
