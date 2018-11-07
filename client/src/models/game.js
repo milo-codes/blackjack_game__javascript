@@ -60,6 +60,7 @@ Game.prototype.dealCards = function (deckId) {
           const playerTotal = this.getHandTotal(this.roundObject.playerCards);
           PubSub.publish("Game:player-total", playerTotal);
           this.blackJackChecker(this.roundObject);
+          this.bustChecker(this.roundObject);
         })
     });
 };
