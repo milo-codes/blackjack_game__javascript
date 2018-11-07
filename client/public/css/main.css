@@ -207,3 +207,14 @@ hr {
 .card_image {
   padding: 3px;
 }
+
+.win_counter {
+  color: silver;
+  font-size: 18px;
+  font-style: italic;
+  margin-left: 80px;
+  margin-top: -90px;
+  border-bottom: 1px solid grey;
+  width: 170px;
+  position: absolute;
+}

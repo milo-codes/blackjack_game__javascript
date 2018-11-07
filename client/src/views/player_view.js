@@ -44,6 +44,7 @@ PlayerView.prototype.renderWinCount = function (number) {
   containerDiv.innerHTML = "";
   const winCountBox = document.createElement('p');
   winCountBox.textContent = `Number of wins: ${number}`;
+  winCountBox.classList.add('win_counter');
   containerDiv.appendChild(winCountBox)
 };
 

@@ -61,6 +61,7 @@ DealerView.prototype.renderWinCount = function (number) {
   const containerDiv = document.querySelector('div#dealer_win_count_container');
   containerDiv.innerHTML = "";
   const winCountBox = document.createElement('p');
+  winCountBox.classList.add('win_counter');
   winCountBox.textContent = `Number of wins: ${number}`;
   containerDiv.appendChild(winCountBox)
 
