@@ -96,7 +96,6 @@ Game.prototype.renderDealerAction = function (array) {
   PubSub.publish("Game:dealer-total", dealerTotal);
 
   if (this.getHandTotal(array) <= 16) {
-<<<<<<< HEAD
     setTimeout(() => {
       this.drawOneCard(array, `dealer`)
       this.playCardSound();
@@ -106,12 +105,7 @@ Game.prototype.renderDealerAction = function (array) {
     setTimeout(() => {
       this.getResult(this.roundObject)
     }, 300);
-=======
-    this.drawOneCard(array, `dealer`)
->>>>>>> 67d230d7bb283e3f0b7148a89b25b2d51e6b5ab1
   }
-  else{
-  this.getResult(this.roundObject)};
 };
 
 // converts picture cards and ace values as cards dealt/drawn
