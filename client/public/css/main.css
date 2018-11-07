@@ -177,19 +177,17 @@ hr {
   float: right;
   margin-top: -210px;
   margin-right: -950px;
-
 } */
+
 /*
 this is now the dealer total text  */
 #total_text_container {
-  /* border: 3px solid salmon; */
   float: right;
   margin-top: -200px;
   margin-right: 150px;
   color: white;
   font-size: 30px;
-  /* vertical-align: middle; */
-  /* width: 100%; */
+
 }
 
 
@@ -235,7 +233,6 @@ this is now the dealer total text  */
   border-bottom: 1px solid grey;
   width: 170px;
   position: absolute;
-  border: 3px solid yellow;
 }
 
 #player_win_counter {
@@ -247,5 +244,4 @@ this is now the dealer total text  */
   border-bottom: 1px solid grey;
   width: 170px;
   position: absolute;
-  border: 3px solid yellow;
 }
