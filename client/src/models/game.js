@@ -41,6 +41,10 @@ Game.prototype.bindEvents = function () {
 
 // start of game, new shuffled 6 deck & initial deal
 Game.prototype.getShuffledDeck = function () {
+  this.playerWinCount = 0;
+  this.dealerWinCount = 0;
+  PubSub.publish("Game:player_win_count", this.playerWinCount);
+  PubSub.publish("Game:dealer_win_count", this.dealerWinCount);
   this.requestDeck.get()
     .then((shuffledDeck) => {
       this.newCardsUrl = `https://deckofcardsapi.com/api/deck/${ shuffledDeck.deck_id }/draw/?count=2`;
