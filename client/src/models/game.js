@@ -5,6 +5,8 @@ const Game = function () {
   this.newDeckUrl = 'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=6';
   this.requestDeck = new RequestHelper(this.newDeckUrl);
   this.roundObject = {};
+  this.playerWinCount = 0;
+  this.dealerWinCount = 0;
 };
 
 Game.prototype.bindEvents = function () {
@@ -30,6 +32,7 @@ Game.prototype.bindEvents = function () {
     }, 300);
 
   });
+
 };
 
 // start of game, new shuffled 6 deck & initial deal
@@ -63,6 +66,7 @@ Game.prototype.dealCards = function (deckId) {
           const playerTotal = this.getHandTotal(this.roundObject.playerCards);
           PubSub.publish("Game:player-total", playerTotal);
           this.blackJackChecker(this.roundObject);
+          this.bustChecker(this.roundObject);
         })
     });
 };
@@ -105,6 +109,9 @@ Game.prototype.renderDealerAction = function (array) {
       this.playCardSound();
     }, 300);
   }
+  else if (this.getHandTotal(array) > 21) {
+    //this is supposed to be empty, so if the dealer goes bust, this.getResult is not called in the line below
+  }
   else {
     setTimeout(() => {
       this.getResult(this.roundObject)
@@ -137,24 +144,32 @@ Game.prototype.getResult = function (roundObject) {
   if (playerTotal > 21) {
     whoWon = "You went Bust! Dealer wins!"
     this.playLoseSound();
+    this.dealerWinCount += 1;
   }
   else if (dealerTotal > 21) {
     whoWon = "Dealer went Bust! You win!"
     this.playWinSound();
+    this.playerWinCount += 1;
   }
   else if (dealerTotal > playerTotal) {
     whoWon = "Dealer wins!"
     this.playLoseSound();
+    this.dealerWinCount += 1;
   }
   else if (playerTotal > dealerTotal) {
     whoWon = "You win!";
     this.playWinSound();
+    this.playerWinCount += 1;
   }
   else {
     whoWon = "It's a draw!"
   }
 
   PubSub.publish("Game:result-loaded", whoWon);
+//------------------------------------------------------------
+  PubSub.publish("Game:player_win_count", this.playerWinCount);
+  PubSub.publish("Game:dealer_win_count", this.dealerWinCount);
+//-------------------------------------------------------------
 };
 
 Game.prototype.getHandTotal = function (array) {

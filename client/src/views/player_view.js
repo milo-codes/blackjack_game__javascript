@@ -36,4 +36,13 @@ PlayerView.prototype.renderTotal = function (total) {
   box.appendChild(totalCounter);
 };
 
+PlayerView.prototype.renderWinCount = function (number) {
+  const containerDiv = document.querySelector('div#player_win_count_container');
+  containerDiv.innerHTML = "";
+  const winCountBox = document.createElement('p');
+  winCountBox.textContent = `Number of wins: ${number}`;
+  winCountBox.classList.add('win_counter');
+  containerDiv.appendChild(winCountBox)
+};
+
 module.exports = PlayerView;
