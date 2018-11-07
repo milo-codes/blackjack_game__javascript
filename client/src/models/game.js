@@ -23,7 +23,9 @@ Game.prototype.bindEvents = function () {
     PubSub.publish(`Game:dealer-drawn-card-ready`, this.roundObject.dealerCards);
     setTimeout(() => {
       this.renderDealerAction(this.roundObject.dealerCards);
-    }, 1000);
+    }, 300);
+
+    // I THINK THE BELOW TWO LINES ARE HAPPENING TWICE, HERE AND AT START OF renderDealerAction?
     const dealerTotal = this.getHandTotal(this.roundObject.dealerCards)
     PubSub.publish("Game:dealer-total", dealerTotal);
   });
@@ -47,14 +49,14 @@ Game.prototype.dealCards = function (deckId) {
   this.requestCards = new RequestHelper(this.newCardsUrl);
   this.requestCards.get()
     .then((drawnCards) => {
-      this.convert(drawnCards.cards)
+      this.convert(drawnCards.cards);
       this.roundObject.dealerCards = drawnCards.cards;
       PubSub.publish("Game:dealer-cards-ready", this.roundObject.dealerCards);
     })
     .then(() => {
       this.requestCards.get()
         .then((drawnCards) => {
-          this.convert(drawnCards.cards)
+          this.convert(drawnCards.cards);
           this.roundObject.playerCards = drawnCards.cards;
           PubSub.publish("Game:player-cards-ready", this.roundObject.playerCards);
           const playerTotal = this.getHandTotal(this.roundObject.playerCards);
@@ -74,7 +76,9 @@ Game.prototype.drawOneCard = function (array, actor) {
       array.push(cardObject.cards[0]);
 
       const playerTotal = this.getHandTotal(this.roundObject.playerCards)
+      // IS LINE BELOW CALLED ON ANYWHERE?
       const ceeerds = this.getHandTotal(cardObject.cards);
+      // IS THIS WHERE WE WERE TRYING TO INJECT THE ACTOR TO MAKE FUNCTION REUSABLE?
       PubSub.publish("Game:player-total", playerTotal);
       PubSub.publish(`Game:${ actor }-drawn-card-ready`, array);
       this.bustChecker(this.roundObject);
@@ -82,13 +86,16 @@ Game.prototype.drawOneCard = function (array, actor) {
     })
     .then((array) => {
       if (actor == `dealer`) {
-        this.renderDealerAction(array)
+        setTimeout(() => {
+          this.renderDealerAction(array)
+        }, 300);
       }
     })
 };
 
 // triggered after player 'sticks' and recurrs if condition true
 Game.prototype.renderDealerAction = function (array) {
+  // CAN BE REFACTORED:
   const dealerTotal = this.getHandTotal(this.roundObject.dealerCards)
   PubSub.publish("Game:dealer-total", dealerTotal);
 
@@ -177,10 +184,14 @@ Game.prototype.renderChoice = function (roundObject) {
 // triggered each time card drawn:
 Game.prototype.bustChecker = function (roundObject) {
   if (this.getHandTotal(roundObject.playerCards) > 21) {
-    this.checkForEleven(roundObject.playerCards);
+    setTimeout(() => {
+      this.checkForEleven(roundObject.playerCards)
+    }, 300);
   }
   else if (this.getHandTotal(roundObject.dealerCards) > 21) {
-    this.checkForEleven(roundObject.dealerCards);
+    setTimeout(() => {
+      this.checkForEleven(roundObject.dealerCards)
+    }, 300);
   }
 };
 
@@ -195,7 +206,9 @@ Game.prototype.checkForEleven = function (cards) {
   }
   else {
     PubSub.publish(`Game:dealer-drawn-card-ready`, this.roundObject.dealerCards);
-    this.getResult(this.roundObject);
+    setTimeout(() => {
+      this.getResult(this.roundObject);
+    }, 300);
   };
 };
 
