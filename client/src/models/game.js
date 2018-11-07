@@ -17,7 +17,6 @@ Game.prototype.bindEvents = function () {
 
   PubSub.subscribe("ResultView:hit-button-click", () => {
     this.drawOneCard(this.roundObject.playerCards, `player`)
-    this.playCardSound();
   });
 
   PubSub.subscribe("ResultView:stick-button-click", () => {
@@ -96,7 +95,6 @@ Game.prototype.renderDealerAction = function (array) {
   if (this.getHandTotal(array) <= 16) {
     setTimeout(() => {
       this.drawOneCard(array, `dealer`)
-      this.playCardSound();
     }, 300);
   }
   else {
@@ -130,19 +128,15 @@ Game.prototype.getResult = function (roundObject) {
 
   if (playerTotal > 21) {
     whoWon = "You went Bust! Dealer wins!"
-    this.playLoseSound();
   }
   else if (dealerTotal > 21) {
     whoWon = "Dealer went Bust! You win!"
-    this.playWinSound();
   }
   else if (dealerTotal > playerTotal) {
     whoWon = "Dealer wins!"
-    this.playLoseSound();
   }
   else if (playerTotal > dealerTotal) {
     whoWon = "You win!";
-    this.playWinSound();
   }
   else {
     whoWon = "It's a draw!"
@@ -203,21 +197,6 @@ Game.prototype.checkForEleven = function (cards) {
     PubSub.publish(`Game:dealer-drawn-card-ready`, this.roundObject.dealerCards);
     this.getResult(this.roundObject);
   };
-};
-
-Game.prototype.playCardSound = function () {
-  var sound = new Audio("/sound/cardPlace4.wav");
-  sound.play()
-};
-
-Game.prototype.playWinSound = function () {
-  var sound = new Audio("/sound/youwin.wav");
-  sound.play()
-};
-
-Game.prototype.playLoseSound = function () {
-  var sound = new Audio("/sound/youlose.wav");
-  sound.play()
 };
 
 
