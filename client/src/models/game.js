@@ -77,8 +77,6 @@ Game.prototype.drawOneCard = function (array, actor) {
       const playerTotal = this.getHandTotal(this.roundObject.playerCards)
       const ceeerds = this.getHandTotal(cardObject.cards);
       PubSub.publish("Game:player-total", playerTotal);
-      console.log('playercards:',playerTotal);
-      console.log('cerds:',ceeerds);
       PubSub.publish(`Game:${ actor }-drawn-card-ready`, array);
       this.bustChecker(this.roundObject);
       return array;

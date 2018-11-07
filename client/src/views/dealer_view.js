@@ -49,7 +49,6 @@ DealerView.prototype.renderRevealed = function (cards) {
 DealerView.prototype.renderTotal = function (total) {
   const box = document.querySelector('div#dealer_total');
   box.innerHTML = "";
-  console.log("this is total dot detail:", total.detail);
   const totalCounter = document.createElement('p');
   totalCounter.textContent = total.detail;
   box.appendChild(totalCounter);
