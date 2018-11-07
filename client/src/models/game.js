@@ -13,6 +13,9 @@ Game.prototype.bindEvents = function () {
     const dealerTotalBox = document.querySelector('div#dealer_total');
     dealerTotalBox.innerHTML = "";
     this.dealCards(this.deckId);
+
+    const totalTextBox = document.querySelector("div#total_text_container")
+    totalTextBox.innerHTML = "";
   });
 
   PubSub.subscribe("ResultView:hit-button-click", () => {
@@ -96,7 +99,7 @@ Game.prototype.renderDealerAction = function (array) {
   const dealerTotal = this.getHandTotal(this.roundObject.dealerCards)
   PubSub.publish("Game:dealer-total", dealerTotal);
 
-  if ((this.getHandTotal(array) <= 16) && (this.getHandTotal(array) < this.getHandTotal(this.roundObject.playerCards) )) {
+  if ((this.getHandTotal(array) <= 16) && (this.getHandTotal(array) <= this.getHandTotal(this.roundObject.playerCards) )) {
     setTimeout(() => {
       this.drawOneCard(array, `dealer`)
       this.playCardSound();

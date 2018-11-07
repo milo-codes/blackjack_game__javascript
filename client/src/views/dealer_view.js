@@ -47,8 +47,18 @@ DealerView.prototype.renderRevealed = function (cards) {
 };
 
 DealerView.prototype.renderTotal = function (total) {
+
+ const totalTextBox = document.querySelector("div#total_text_container")
+ totalTextBox.innerHTML = "";
+
+  const totalText = document.createElement("p");
+  totalText.innerHTML = "Dealer total";
+  totalText.setAttribute("id", "totalText");
+  totalTextBox.appendChild(totalText);
+
   const box = document.querySelector('div#dealer_total');
   box.innerHTML = "";
+
   const totalCounter = document.createElement('p');
   totalCounter.textContent = total.detail;
   box.appendChild(totalCounter);

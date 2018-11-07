@@ -176,6 +176,12 @@ hr {
 
 }
 
+#totalText {
+  position: absolute;
+  /* float: right; */
+  margin-left: 1100px;
+  margin-top: -200px;
+}
 
 #dealer_text {
   width: 20%;
