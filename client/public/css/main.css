@@ -44,7 +44,6 @@ p {
   width: 100%;
 }
 
-<<<<<<< HEAD
 p#loading-text {
   font-size: 15px;
 }
@@ -52,12 +51,6 @@ p#loading-text {
 .views {
   display: grid;
   grid-template-rows: 1fr 1fr 1fr;
-=======
-#total_text {
-  float: right;
-  margin-top: -230px;
-  margin-right: 150px;
->>>>>>> develop
 }
 
 .view {
@@ -194,17 +187,39 @@ hr {
 
 }
 
-#totalText {
-  position: absolute;
-  /* float: right; */
-  margin-left: 1100px;
+/* this used to be the dealer total text */
+/* #totalText {
+  border: 3px solid yellow;
+  float: right;
+  margin-top: -210px;
+  margin-right: -950px;
+} */
+
+/*
+this is now the dealer total text  */
+#total_text_container {
+  float: right;
   margin-top: -200px;
+  margin-right: 150px;
+  color: white;
+  font-size: 30px;
+
+}
+
+
+/* this is the player total text  */
+#total_text {
+  float: right;
+  margin-top: -230px;
+  margin-right: 150px;
+  /* border: 3px solid salmon; */
 }
 
 #dealer_text {
   width: 20%;
   margin-top: 100px;
   margin-left: 75px;
+
 }
 
 #dealer_total {
@@ -225,8 +240,28 @@ hr {
   padding: 3px;
 }
 
-<<<<<<< HEAD
-/* auto replay donut spinner */
+#dealer_win_counter {
+  color: silver;
+  font-size: 18px;
+  font-style: italic;
+  margin-left: 80px;
+  margin-top: -90px;
+  border-bottom: 1px solid grey;
+  width: 170px;
+  position: absolute;
+}
+
+#player_win_counter {
+  color: silver;
+  font-size: 18px;
+  font-style: italic;
+  margin-left: 80px;
+  margin-top: -90px;
+  border-bottom: 1px solid grey;
+  width: 170px;
+  position: absolute;
+}
+
 @keyframes donut-spin {
   0% {
     transform: rotate(0deg);
@@ -242,16 +277,5 @@ hr {
   border-radius: 50%;
   width: 30px;
   height: 30px;
-  animation: donut-spin 2s linear infinite;
-=======
-.win_counter {
-  color: silver;
-  font-size: 18px;
-  font-style: italic;
-  margin-left: 80px;
-  margin-top: -90px;
-  border-bottom: 1px solid grey;
-  width: 170px;
-  position: absolute;
->>>>>>> develop
+  animation: donut-spin 1.2s linear infinite;
 }
