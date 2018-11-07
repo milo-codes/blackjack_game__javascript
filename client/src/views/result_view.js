@@ -12,6 +12,7 @@ ResultView.prototype.bindEvents = function () {
   PubSub.subscribe("Game:result-loaded", (event) => {
     // render payload:
     this.renderResult(event.detail);
+    this.loadDonut();
   });
   PubSub.subscribe("Game:choice-loaded", () => {
     this.renderChoice();
@@ -46,4 +47,21 @@ ResultView.prototype.renderChoice = function () {
   });
 };
 
+ResultView.prototype.loadDonut = function () {
+
+  donut = document.createElement("div");
+  donut.classList.add("donut");
+  this.container.appendChild(donut);
+
+  setTimeout(() => {
+    PubSub.publish("ResultView:auto-redeal");
+  }, 2500);
+};
+
 module.exports = ResultView;
+
+ResultView.prototype.countDown = function (number) {
+
+  getReadyContainer.textContent = `${ number }`;
+
+};

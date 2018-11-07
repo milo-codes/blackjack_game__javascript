@@ -17,6 +17,12 @@ Game.prototype.bindEvents = function () {
     this.dealCards(this.deckId);
   });
 
+  PubSub.subscribe("ResultView:auto-redeal", () => {
+    const dealerTotalBox = document.querySelector('div#dealer_total');
+    dealerTotalBox.innerHTML = "";
+    this.dealCards(this.deckId);
+  })
+
   PubSub.subscribe("ResultView:hit-button-click", () => {
     this.drawOneCard(this.roundObject.playerCards, `player`)
     this.playCardSound();
