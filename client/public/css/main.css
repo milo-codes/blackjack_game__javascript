@@ -44,6 +44,15 @@ p {
   width: 100%;
 }
 
+p#loading-text {
+  font-size: 15px;
+}
+
+.views {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+}
+
 .view {
   color: white;
 }
@@ -97,6 +106,7 @@ p {
 #result_container{
   text-align: center;
   color: white;
+  height: 100%;
   /* border: 5px solid white; */
   /* width: 200px;
   height: auto; */
@@ -109,11 +119,16 @@ p {
   display: inline-block;
   text-align: center;
   vertical-align: middle;
-  float:none;
+  float: none;
   height: auto;
   width: 100px;
   margin: auto;
   margin: 10px;
+  position: relative;
+  top: 5em;
+}
+
+.player-choice-button {
 }
 
 .pretty-text-underline {
@@ -137,6 +152,7 @@ button {
   float: right;
   margin-right: 50px;
   margin-bottom: 20px;
+  vertical-align: middle;
 }
 
 button:hover {

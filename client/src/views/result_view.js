@@ -12,7 +12,9 @@ ResultView.prototype.bindEvents = function () {
   PubSub.subscribe("Game:result-loaded", (event) => {
     // render payload:
     this.renderResult(event.detail);
-    this.loadDonut();
+    setTimeout(() => {
+      this.loadDonut();
+    }, 800);
   });
   PubSub.subscribe("Game:choice-loaded", () => {
     this.renderChoice();
@@ -48,14 +50,23 @@ ResultView.prototype.renderChoice = function () {
 };
 
 ResultView.prototype.loadDonut = function () {
+  const loadingContainer = document.createElement("div");
+  loadingContainer.classList.add("loading");
+  this.container.appendChild(loadingContainer);
 
-  donut = document.createElement("div");
+  const donut = document.createElement("div");
   donut.classList.add("donut");
-  this.container.appendChild(donut);
+  loadingContainer.appendChild(donut);
+
+  const loadingText = document.createElement("p");
+  loadingText.id = "loading-text";
+  loadingText.textContent = "Ready for the next deal?"
+  loadingContainer.appendChild(loadingText);
+
 
   setTimeout(() => {
     PubSub.publish("ResultView:auto-redeal");
-  }, 2500);
+  }, 1500);
 };
 
 module.exports = ResultView;
