@@ -26,8 +26,8 @@ Game.prototype.bindEvents = function () {
     }, 300);
 
     // I THINK THE BELOW TWO LINES ARE HAPPENING TWICE, HERE AND AT START OF renderDealerAction?
-    const dealerTotal = this.getHandTotal(this.roundObject.dealerCards)
-    PubSub.publish("Game:dealer-total", dealerTotal);
+    // const dealerTotal = this.getHandTotal(this.roundObject.dealerCards)
+    // PubSub.publish("Game:dealer-total", dealerTotal);
   });
 };
 
@@ -88,7 +88,7 @@ Game.prototype.drawOneCard = function (array, actor) {
       if (actor == `dealer`) {
         setTimeout(() => {
           this.renderDealerAction(array)
-        }, 300);
+        }, 1000);
       }
     })
 };
