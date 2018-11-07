@@ -56,10 +56,6 @@ Game.prototype.dealCards = function (deckId) {
     .then(() => {
       this.requestCards.get()
         .then((drawnCards) => {
-<<<<<<< HEAD
-=======
-          console.log("DRAWN CARDS:", drawnCards);
->>>>>>> develop
           this.convert(drawnCards.cards);
           this.roundObject.playerCards = drawnCards.cards;
           PubSub.publish("Game:player-cards-ready", this.roundObject.playerCards);
