@@ -105,7 +105,7 @@ Game.prototype.renderDealerAction = function (array) {
     }, 300);
   }
   else if (this.getHandTotal(array) > 21) {
-    
+    //this is supposed to be empty, so if the dealer goes bust, this.getResult is not called in the line below
   }
   else {
     setTimeout(() => {
