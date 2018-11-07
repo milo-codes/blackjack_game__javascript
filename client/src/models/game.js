@@ -26,9 +26,6 @@ Game.prototype.bindEvents = function () {
       this.renderDealerAction(this.roundObject.dealerCards);
     }, 300);
 
-    // I THINK THE BELOW TWO LINES ARE HAPPENING TWICE, HERE AND AT START OF renderDealerAction?
-    const dealerTotal = this.getHandTotal(this.roundObject.dealerCards)
-    PubSub.publish("Game:dealer-total", dealerTotal);
   });
 };
 
@@ -77,8 +74,7 @@ Game.prototype.drawOneCard = function (array, actor) {
       array.push(cardObject.cards[0]);
 
       const playerTotal = this.getHandTotal(this.roundObject.playerCards)
-      // IS LINE BELOW CALLED ON ANYWHERE?
-      const ceeerds = this.getHandTotal(cardObject.cards);
+
       // IS THIS WHERE WE WERE TRYING TO INJECT THE ACTOR TO MAKE FUNCTION REUSABLE?
       PubSub.publish("Game:player-total", playerTotal);
       PubSub.publish(`Game:${ actor }-drawn-card-ready`, array);
@@ -89,7 +85,7 @@ Game.prototype.drawOneCard = function (array, actor) {
       if (actor == `dealer`) {
         setTimeout(() => {
           this.renderDealerAction(array)
-        }, 300);
+        }, 1000);
       }
     })
 };
