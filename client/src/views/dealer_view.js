@@ -24,7 +24,7 @@ DealerView.prototype.renderHidden = function (cards) {
     // hide first dealer card:
     if (index == 0) {
       const hiddenCardImage = document.createElement('img');
-      hiddenCardImage.src = "/css/hidden_card.png";
+      hiddenCardImage.src = "/css/hidden-card-NEW2.png";
       hiddenCardImage.classList.add('card_image');
       this.container.appendChild(hiddenCardImage);
     }

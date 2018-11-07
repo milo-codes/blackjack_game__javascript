@@ -47,6 +47,23 @@ const ace = {
   value: "11",
   image: "https://deckofcardsapi.com/static/img/AC.png"
 };
+const ace2 = {
+  value: "11",
+  image: "https://deckofcardsapi.com/static/img/AH.png"
+};
+const ace3 = {
+  value: "11",
+  image: "https://deckofcardsapi.com/static/img/AS.png"
+};
+const ace4 = {
+  value: "11",
+  image: "https://deckofcardsapi.com/static/img/AD.png"
+};
+
+
+
+const aceArray = [ace, ace2, ace3, ace4]
+
 
 // start of game.js code with modified deal and draw functions:
 const RequestHelper = require('../helpers/request_helper.js');
@@ -117,7 +134,7 @@ Game.prototype.dealCards = function (deckId) {
 // an actor draws one card into their card array
 Game.prototype.drawOneCard = function (array, actor) {
   // TEST CARD DRAW FOR PLAYER
-  array.push(six);
+  array.push(aceArray.splice(0, 1)[0]);
   // TEST CARD DRAW FOR PLAYER
 
   const playerTotal = this.getHandTotal(this.roundObject.playerCards)
@@ -224,11 +241,13 @@ Game.prototype.bustChecker = function (roundObject) {
 
 // handling ace value being 1 or 11:
 Game.prototype.checkForEleven = function (cards) {
-
+  // console.log(cards);
   const elevenCard = cards.find( card => card.value == "11");
+  // console.log(elevenCard);
   if (elevenCard != undefined) {
     elevenCard.value = "1"
     const playerTotal = this.getHandTotal(this.roundObject.playerCards);
+    console.log(ace);
     PubSub.publish("Game:player-total", playerTotal);
   }
   else {
