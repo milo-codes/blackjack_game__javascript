@@ -101,14 +101,14 @@ Game.prototype.getShuffledDeck = function () {
 // initial deal - two cards each, first dealer card hidden
 Game.prototype.dealCards = function (deckId) {
   // TEST CARDS FOR DEALER
-  let testDealerCardsArray = [two, three];
+  let testDealerCardsArray = [ace2, ace3];
   // TEST CARDS FOR DEALER
 
   this.roundObject.dealerCards = testDealerCardsArray;
   PubSub.publish("Game:dealer-cards-ready", this.roundObject.dealerCards);
 
   // TEST CARDS FOR PLAYER
-  let testPlayerCardsArray = [four, five];
+  let testPlayerCardsArray = [four, six];
   // TEST CARDS FOR PLAYER
 
   this.roundObject.playerCards = testPlayerCardsArray;
