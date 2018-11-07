@@ -3,7 +3,7 @@
 const PlayerView = require("./views/player_view.js");
 const DealerView = require("./views/dealer_view.js");
 const ResultView = require("./views/result_view.js");
-const Game = require("./models/game.js");
+const Game = require("./models/test_game.js");
 
 // listener for dom content loaded
 document.addEventListener("DOMContentLoaded", () => {
