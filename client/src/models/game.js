@@ -10,11 +10,9 @@ const Game = function () {
 };
 
 Game.prototype.bindEvents = function () {
-  const playAgainButton = document.querySelector("#play-again-button");
-  playAgainButton.addEventListener("click", () => {
-    const dealerTotalBox = document.querySelector('div#dealer_total');
-    dealerTotalBox.innerHTML = "";
-    this.dealCards(this.deckId);
+  const shuffleDeckButton = document.querySelector("#shuffle-deck-button");
+  shuffleDeckButton.addEventListener("click", () => {
+    this.getShuffledDeck();
   });
 
   PubSub.subscribe("ResultView:auto-redeal", () => {
