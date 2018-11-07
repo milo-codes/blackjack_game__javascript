@@ -96,7 +96,7 @@ Game.prototype.renderDealerAction = function (array) {
   const dealerTotal = this.getHandTotal(this.roundObject.dealerCards)
   PubSub.publish("Game:dealer-total", dealerTotal);
 
-  if (this.getHandTotal(array) <= 16) {
+  if ((this.getHandTotal(array) <= 16) && (this.getHandTotal(array) < this.getHandTotal(this.roundObject.playerCards) )) {
     setTimeout(() => {
       this.drawOneCard(array, `dealer`)
       this.playCardSound();
