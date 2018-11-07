@@ -85,7 +85,7 @@ Game.prototype.drawOneCard = function (array, actor) {
       if (actor == `dealer`) {
         setTimeout(() => {
           this.renderDealerAction(array)
-        }, 1000);
+        }, 300);
       }
     })
 };
