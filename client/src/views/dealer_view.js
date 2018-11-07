@@ -15,6 +15,9 @@ DealerView.prototype.bindEvents = function () {
   PubSub.subscribe("Game:dealer-total", (total) => {
     this.renderTotal(total);
   });
+  PubSub.subscribe("Game:dealer_win_count", (winCount) => {
+    this.renderWinCount(winCount.detail);
+  });
 };
 
 DealerView.prototype.renderHidden = function (cards) {
@@ -47,11 +50,31 @@ DealerView.prototype.renderRevealed = function (cards) {
 };
 
 DealerView.prototype.renderTotal = function (total) {
+
+ const totalTextBox = document.querySelector("div#total_text_container")
+ totalTextBox.innerHTML = "";
+
+  const totalText = document.createElement("p");
+  totalText.innerHTML = "Dealer total";
+  totalText.setAttribute("id", "totalText");
+  totalTextBox.appendChild(totalText);
+
   const box = document.querySelector('div#dealer_total');
   box.innerHTML = "";
+
   const totalCounter = document.createElement('p');
   totalCounter.textContent = total.detail;
   box.appendChild(totalCounter);
+};
+
+DealerView.prototype.renderWinCount = function (number) {
+  const containerDiv = document.querySelector('div#dealer_win_count_container');
+  containerDiv.innerHTML = "";
+  const winCountBox = document.createElement('p');
+  winCountBox.classList.add('win_counter');
+  winCountBox.textContent = `Number of wins: ${number}`;
+  containerDiv.appendChild(winCountBox)
+
 };
 
 

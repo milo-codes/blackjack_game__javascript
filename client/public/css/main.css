@@ -44,6 +44,7 @@ p {
   width: 100%;
 }
 
+<<<<<<< HEAD
 p#loading-text {
   font-size: 15px;
 }
@@ -51,6 +52,12 @@ p#loading-text {
 .views {
   display: grid;
   grid-template-rows: 1fr 1fr 1fr;
+=======
+#total_text {
+  float: right;
+  margin-top: -230px;
+  margin-right: 150px;
+>>>>>>> develop
 }
 
 .view {
@@ -169,12 +176,10 @@ hr {
   width: 20%;
   margin-top: 100px;
   margin-left: 75px;
-
 }
 
 #player_total {
-  /* border: 3px solid salmon; */
-  /* width: 10%; */
+
   background-image: url("poker-chip.png");
   background-size: contain;
   background-repeat: no-repeat;
@@ -184,11 +189,16 @@ hr {
   margin-right: 10px;
   margin-top: -150px;
   vertical-align: middle;
+  padding-right: 50px;
   padding-left: 30px;
-  padding-right: 23px;
-  /* background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 100px;
-  box-shadow: 1px 1px 20px 20px rgba(0,0,0,0.5); */ */ */
+
+}
+
+#totalText {
+  position: absolute;
+  /* float: right; */
+  margin-left: 1100px;
+  margin-top: -200px;
 }
 
 #dealer_text {
@@ -198,8 +208,6 @@ hr {
 }
 
 #dealer_total {
-  /* border: 3px solid salmon; */
-  /* width: 10%; */
   background-image: url("poker-chip.png");
   background-size: contain;
   background-repeat: no-repeat;
@@ -209,22 +217,15 @@ hr {
   margin-right: 10px;
   margin-top: -150px;
   vertical-align: middle;
+  padding-right: 50px;
   padding-left: 30px;
-  padding-right: 23px;
-  /* float: right;
-  margin-right: 140px;
-  margin-top: -150px;
-  padding-left: 25px;
-  padding-right: 25px;
-  background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 100px;
-  box-shadow: 1px 1px 20px 20px rgba(0,0,0,0.5); */
 }
 
 .card_image {
   padding: 3px;
 }
 
+<<<<<<< HEAD
 /* auto replay donut spinner */
 @keyframes donut-spin {
   0% {
@@ -242,4 +243,15 @@ hr {
   width: 30px;
   height: 30px;
   animation: donut-spin 2s linear infinite;
+=======
+.win_counter {
+  color: silver;
+  font-size: 18px;
+  font-style: italic;
+  margin-left: 80px;
+  margin-top: -90px;
+  border-bottom: 1px solid grey;
+  width: 170px;
+  position: absolute;
+>>>>>>> develop
 }

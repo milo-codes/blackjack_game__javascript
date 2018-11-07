@@ -19,7 +19,10 @@ Game.prototype.bindEvents = function () {
     const dealerTotalBox = document.querySelector('div#dealer_total');
     dealerTotalBox.innerHTML = "";
     this.dealCards(this.deckId);
-  })
+
+    const totalTextBox = document.querySelector("div#total_text_container")
+    totalTextBox.innerHTML = "";
+  });
 
   PubSub.subscribe("ResultView:hit-button-click", () => {
     this.drawOneCard(this.roundObject.playerCards, `player`)
@@ -33,6 +36,7 @@ Game.prototype.bindEvents = function () {
     }, 300);
 
   });
+
 };
 
 // start of game, new shuffled 6 deck & initial deal
@@ -103,7 +107,7 @@ Game.prototype.renderDealerAction = function (array) {
   const dealerTotal = this.getHandTotal(this.roundObject.dealerCards)
   PubSub.publish("Game:dealer-total", dealerTotal);
 
-  if ((this.getHandTotal(array) <= 16) && (this.getHandTotal(array) < this.getHandTotal(this.roundObject.playerCards) )) {
+  if ((this.getHandTotal(array) <= 16) && (this.getHandTotal(array) <= this.getHandTotal(this.roundObject.playerCards) )) {
     setTimeout(() => {
       this.drawOneCard(array, `dealer`)
       this.playCardSound();
@@ -166,6 +170,10 @@ Game.prototype.getResult = function (roundObject) {
   }
 
   PubSub.publish("Game:result-loaded", whoWon);
+//------------------------------------------------------------
+  PubSub.publish("Game:player_win_count", this.playerWinCount);
+  PubSub.publish("Game:dealer_win_count", this.dealerWinCount);
+//-------------------------------------------------------------
 };
 
 Game.prototype.getHandTotal = function (array) {
