@@ -14,6 +14,9 @@ PlayerView.prototype.bindEvents = function () {
   PubSub.subscribe("Game:player-total", (total) => {
     this.renderTotal(total);
   });
+  PubSub.subscribe("Game:player_win_count", (winCount) => {
+    this.renderWinCount(winCount.detail);
+  });
 
 };
 
@@ -34,6 +37,14 @@ PlayerView.prototype.renderTotal = function (total) {
   const totalCounter = document.createElement('p');
   totalCounter.textContent = total.detail;
   box.appendChild(totalCounter);
+};
+
+PlayerView.prototype.renderWinCount = function (number) {
+  const containerDiv = document.querySelector('div#player_win_count_container');
+  containerDiv.innerHTML = "";
+  const winCountBox = document.createElement('p');
+  winCountBox.textContent = `Number of wins: ${number}`;
+  containerDiv.appendChild(winCountBox)
 };
 
 module.exports = PlayerView;

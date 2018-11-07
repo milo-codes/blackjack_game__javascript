@@ -29,6 +29,7 @@ Game.prototype.bindEvents = function () {
     }, 300);
 
   });
+
 };
 
 // start of game, new shuffled 6 deck & initial deal
@@ -173,6 +174,10 @@ Game.prototype.getResult = function (roundObject) {
   }
 
   PubSub.publish("Game:result-loaded", whoWon);
+//------------------------------------------------------------
+  PubSub.publish("Game:player_win_count", this.playerWinCount);
+  PubSub.publish("Game:dealer_win_count", this.dealerWinCount);
+//-------------------------------------------------------------
 };
 
 Game.prototype.getHandTotal = function (array) {
