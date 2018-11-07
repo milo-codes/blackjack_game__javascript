@@ -25,7 +25,7 @@ Game.prototype.bindEvents = function () {
       this.renderDealerAction(this.roundObject.dealerCards);
     }, 300);
 
-    // I THINK THE BELOW TWO LINES IS HAPPENING TWICE, HERE AND AT START OF renderDealerAction?
+    // I THINK THE BELOW TWO LINES ARE HAPPENING TWICE, HERE AND AT START OF renderDealerAction?
     const dealerTotal = this.getHandTotal(this.roundObject.dealerCards)
     PubSub.publish("Game:dealer-total", dealerTotal);
   });
