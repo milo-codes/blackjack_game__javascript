@@ -41,6 +41,7 @@ p {
   color: white;
   font-size: 30px;
   vertical-align: middle;
+  width: 100%;
 }
 
 .view {
