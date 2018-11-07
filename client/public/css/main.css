@@ -44,12 +44,6 @@ p {
   width: 100%;
 }
 
-#total_text {
-  float: right;
-  margin-top: -230px;
-  margin-right: 150px;
-}
-
 .view {
   color: white;
 }
@@ -177,17 +171,41 @@ hr {
 
 }
 
-#totalText {
-  position: absolute;
-  /* float: right; */
-  margin-left: 1100px;
+/* this used to be the dealer total text */
+/* #totalText {
+  border: 3px solid yellow;
+  float: right;
+  margin-top: -210px;
+  margin-right: -950px;
+
+} */
+/*
+this is now the dealer total text  */
+#total_text_container {
+  /* border: 3px solid salmon; */
+  float: right;
   margin-top: -200px;
+  margin-right: 150px;
+  color: white;
+  font-size: 30px;
+  /* vertical-align: middle; */
+  /* width: 100%; */
+}
+
+
+/* this is the player total text  */
+#total_text {
+  float: right;
+  margin-top: -230px;
+  margin-right: 150px;
+  /* border: 3px solid salmon; */
 }
 
 #dealer_text {
   width: 20%;
   margin-top: 100px;
   margin-left: 75px;
+
 }
 
 #dealer_total {
@@ -208,7 +226,7 @@ hr {
   padding: 3px;
 }
 
-.win_counter {
+#dealer_win_counter {
   color: silver;
   font-size: 18px;
   font-style: italic;
@@ -217,4 +235,17 @@ hr {
   border-bottom: 1px solid grey;
   width: 170px;
   position: absolute;
+  border: 3px solid yellow;
+}
+
+#player_win_counter {
+  color: silver;
+  font-size: 18px;
+  font-style: italic;
+  margin-left: 80px;
+  margin-top: -90px;
+  border-bottom: 1px solid grey;
+  width: 170px;
+  position: absolute;
+  border: 3px solid yellow;
 }
