@@ -5,6 +5,8 @@ const Game = function () {
   this.newDeckUrl = 'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=6';
   this.requestDeck = new RequestHelper(this.newDeckUrl);
   this.roundObject = {};
+  this.playerWinCount = 0;
+  this.dealerWinCount = 0;
 };
 
 Game.prototype.bindEvents = function () {
@@ -102,6 +104,9 @@ Game.prototype.renderDealerAction = function (array) {
       this.playCardSound();
     }, 300);
   }
+  else if (this.getHandTotal(array) > 21) {
+    
+  }
   else {
     setTimeout(() => {
       this.getResult(this.roundObject)
@@ -134,21 +139,36 @@ Game.prototype.getResult = function (roundObject) {
   if (playerTotal > 21) {
     whoWon = "You went Bust! Dealer wins!"
     this.playLoseSound();
+    console.log('player total > 21');
+    this.dealerWinCount += 1;
+    console.log('dealer win count:', this.dealerWinCount);
   }
   else if (dealerTotal > 21) {
     whoWon = "Dealer went Bust! You win!"
     this.playWinSound();
+    console.log('dealer total > 21');
+    this.playerWinCount += 1;
+    console.log('player win count:', this.playerWinCount);
   }
   else if (dealerTotal > playerTotal) {
     whoWon = "Dealer wins!"
     this.playLoseSound();
+    console.log('dealer > player');
+    this.dealerWinCount += 1;
+    console.log('dealer win count:', this.dealerWinCount);
   }
   else if (playerTotal > dealerTotal) {
     whoWon = "You win!";
     this.playWinSound();
+    console.log('player > dealer');
+    this.playerWinCount += 1;
+    console.log('player win count:', this.playerWinCount);
   }
   else {
     whoWon = "It's a draw!"
+    console.log('draw');
+    console.log('player win count:', this.playerWinCount);
+    console.log('dealer win count:', this.dealerWinCount);
   }
 
   PubSub.publish("Game:result-loaded", whoWon);
