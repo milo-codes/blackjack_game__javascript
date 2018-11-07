@@ -14,7 +14,6 @@ PlayerView.prototype.bindEvents = function () {
   PubSub.subscribe("Game:player-total", (total) => {
     this.renderTotal(total);
   });
-
 };
 
 // define the render method
@@ -31,6 +30,7 @@ PlayerView.prototype.render = function (cards) {
 PlayerView.prototype.renderTotal = function (total) {
   const box = document.querySelector('div#player_total');
   box.innerHTML = "";
+
   const totalCounter = document.createElement('p');
   totalCounter.textContent = total.detail;
   box.appendChild(totalCounter);

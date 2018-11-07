@@ -43,6 +43,12 @@ p {
   vertical-align: middle;
 }
 
+#total_text {
+  float: right;
+  margin-top: -230px;
+  margin-right: 150px;
+}
+
 .view {
   color: white;
 }
@@ -169,6 +175,7 @@ hr {
   padding-left: 30px;
 
 }
+
 
 #dealer_text {
   width: 20%;
