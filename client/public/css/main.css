@@ -45,7 +45,7 @@ p {
 }
 
 p#loading-text {
-  font-size: 15px;
+  font-size: 20px;
 }
 
 .views {
@@ -242,23 +242,23 @@ this is now the dealer total text  */
 
 #dealer_win_counter {
   color: silver;
-  font-size: 18px;
+  font-size: 22px;
   font-style: italic;
   margin-left: 80px;
   margin-top: -90px;
   border-bottom: 1px solid grey;
-  width: 170px;
+  width: 210px;
   position: absolute;
 }
 
 #player_win_counter {
   color: silver;
-  font-size: 18px;
+  font-size: 22px;
   font-style: italic;
   margin-left: 80px;
   margin-top: -90px;
   border-bottom: 1px solid grey;
-  width: 170px;
+  width: 210px;
   position: absolute;
 }
 
