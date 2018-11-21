@@ -19,6 +19,8 @@ app.use(parser.json());
 //   })
 //   .catch(console.err);
 
-app.listen(3000, function () {
+const port = process.env.PORT || 3000;
+
+app.listen(port, function () {
   console.log(`Listening on port ${ this.address().port }`);
 });
