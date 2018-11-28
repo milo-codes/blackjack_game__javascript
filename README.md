@@ -17,15 +17,16 @@ I hope you enjoy my work and I welcome your feedback.
 
 Blackjack Browser Game
 
-To play Blackjack, you will first need to run the following commands in Terminal:
+To play Blackjack locally using this codebase, you will first need to run the following commands in Terminal:
 
-npm install
+1. npm install
     - to install dependencies
-
-npm run build
+2. npm run build
     - (optional) to re-generate the bundle.js frontend file
-
-npm run start
+3. npm run start
     - to run the node server
+4. Next direct your browser to http://localhost:3000
 
-Next direct your browser to http://localhost:3000
+You can play online without setup or installation on Heroku: https://blackjack-js-game.herokuapp.com/
+
+This game was built in 5 days
