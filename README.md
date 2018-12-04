@@ -12,6 +12,7 @@ JavaScript felt like the wild west after neat and tidy Ruby, and I really enjoye
   1. The issue of asynchronicity, for example getting the game to wait for an API request to return an additional card before checking the new total. Solved with the use of Promise objects.
   2. Planning of intricate dealer logic. By using Activity Diagrams, pseudocode and PubSub we were able to break this task up into small chunks, find patterns and use PubSub broadcasts to trigger events for various scenarios.
   3. Hiding the dealer card on initial deal. In order to achieve this, I designed the Dealer View to render it's current cards in different ways, depending on which PubSub channel was broadcast to.
+  
 Much unanticipated learning came from building this project as a team. I came to better appreciate mob programming, which was new to me, as well as the value of tools such as User Personas, user testing and MoSCoW.
 
 Rules & Notes
