@@ -5,8 +5,7 @@
 To play Blackjack, you will first need to run the following commands in Terminal:
 
 1. npm install (to install dependencies)
-2. npm run build (optional - to re-generate the bundle.js frontend file)
-3. npm run start (to run the node server)
+2. npm run start (to run the node server)
 
 Next direct your browser to http://localhost:3000
 
