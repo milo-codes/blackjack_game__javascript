@@ -18,6 +18,8 @@ JavaScript felt like the wild west after neat and tidy Ruby, and I really enjoye
 
 Much unanticipated learning came from building this project as a team. I came to better appreciate mob programming, which was new to me, as well as the value of tools such as User Personas, user testing and MoSCoW.
 
+Many thanks to my co-collaborators Iain Floyd, Jackie Farr and Mike Griffin.
+
 ## Rules & Notes
 
 - Game checks for Blackjack upon initial deal.
